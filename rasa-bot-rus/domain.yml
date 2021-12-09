@@ -75,7 +75,7 @@ slots:
     influence_conversation: false
 responses:
   utter_please_rephrase:
-    - text: Простите, я не совсем понял этого. Не могли бы вы перефразировать это иначе?
+    - text: Простите, я не совсем понял. Не могли бы вы перефразировать?
   utter_out_of_scope:
     - text: Извините, я не могу обработать этот запрос.
   utter_features:
@@ -86,9 +86,9 @@ responses:
     - image: https://i.imgur.com/nGF1K8f.jpg
       text: Может, от этого тебе станет легче
   utter_did_that_help:
-    - text: Это помогло?
+    - text: Помогло?
   utter_happy:
-    - text: Большой! Продолжать.
+    - text: Отлично!
   utter_goodbye:
     - text: Пока-пока!
   utter_iamabot:
@@ -96,17 +96,17 @@ responses:
   utter_office_hours:
     - text: Режим работы профессора с 12:00 до 13:00.
   utter_welcome:
-    - text: Добро пожаловать
+    - text: Не за что!
   utter_ask_name:
-    - text: Какое твое полное имя?
+    - text: Как вас зовут?
   utter_ask_reason:
-    - text: В чем причина назначения?
+    - text: По какой причине вы хотите встретиться?
   utter_ask_time:
-    - text: Во сколько ты хочешь встретиться?
+    - text: Во сколько?
   utter_confirm_appointment:
     - text: Все готово! Запись на {name} по причине "{reason}" в {time} забронирована.
   utter_default:
-    - text: Извините, я этого не понял. Вы можете перефразировать?
+    - text: Извините, я не понял. Вы можете перефразировать?
 actions:
   - utter_unhappy
   - action_occupancy

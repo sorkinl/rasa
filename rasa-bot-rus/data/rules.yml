@@ -25,3 +25,7 @@ rules:
     steps:
       - intent: nlu_fallback
       - action: utter_please_rephrase
+  - rule: Greet
+    steps:
+      - intent: greet
+      - action: utter_greet
