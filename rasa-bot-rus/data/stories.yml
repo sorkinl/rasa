@@ -1,0 +1,41 @@
+version: "2.0"
+stories:
+  - story: Request an appointment
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: request_appointment
+      - action: appointment_form
+      - active_loop: appointment_form
+      - active_loop: null
+      - action: utter_confirm_appointment
+  - story: happy path
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: mood_great
+      - action: utter_happy
+  - story: sad path 1
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: mood_unhappy
+      - action: utter_cheer_up
+      - action: utter_did_that_help
+      - intent: affirm
+      - action: utter_happy
+  - story: sad path 2
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: mood_unhappy
+      - action: utter_cheer_up
+      - action: utter_did_that_help
+      - intent: deny
+      - action: utter_goodbye
+  - story: Hi and appointment
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_features
+      - action: utter_features

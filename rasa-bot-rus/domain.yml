@@ -1,0 +1,126 @@
+version: "2.0"
+config:
+  store_entities_as_slots: true
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: false
+intents:
+  - ask_features:
+      use_entities: true
+  - greet:
+      use_entities: true
+  - goodbye:
+      use_entities: true
+  - request_appointment:
+      use_entities: true
+  - affirm:
+      use_entities: true
+  - deny:
+      use_entities: true
+  - mood_great:
+      use_entities: true
+  - mood_unhappy:
+      use_entities: true
+  - bot_challenge:
+      use_entities: true
+  - faq:
+      use_entities: true
+  - gratitude:
+      use_entities: true
+  - student_name_entry:
+      use_entities: true
+  - appointment_reason_entry:
+      use_entities: true
+  - inform_name:
+      use_entities: true
+  - inform_time:
+      use_entities: true
+  - inform_reason:
+      use_entities: true
+  - infrom_time:
+      use_entities: true
+  - infrom_reason:
+      use_entities: true
+  - out_of_scope:
+      use_entities: true
+  - nlu_fallback:
+      use_entities: true
+entities:
+  - faq
+  - place
+  - reason
+  - PERSON
+  - TIME
+  - PER
+slots:
+  name:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  reason:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  requested_slot:
+    type: rasa.shared.core.slots.UnfeaturizedSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  time:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+responses:
+  utter_please_rephrase:
+    - text: Простите, я не совсем понял этого. Не могли бы вы перефразировать это иначе?
+  utter_out_of_scope:
+    - text: Извините, я не могу обработать этот запрос.
+  utter_features:
+    - text: Особенности бла-бла-бла
+  utter_greet:
+    - text: Привет! Чем могу помочь?
+  utter_cheer_up:
+    - image: https://i.imgur.com/nGF1K8f.jpg
+      text: Может, от этого тебе станет легче
+  utter_did_that_help:
+    - text: Это помогло?
+  utter_happy:
+    - text: Большой! Продолжать.
+  utter_goodbye:
+    - text: Пока-пока!
+  utter_iamabot:
+    - text: Я робот.
+  utter_office_hours:
+    - text: Режим работы профессора с 12:00 до 13:00.
+  utter_welcome:
+    - text: Добро пожаловать
+  utter_ask_name:
+    - text: Какое твое полное имя?
+  utter_ask_reason:
+    - text: В чем причина назначения?
+  utter_ask_time:
+    - text: Во сколько ты хочешь встретиться?
+  utter_confirm_appointment:
+    - text: Все готово! Запись на {name} по причине "{reason}" в {time} забронирована.
+  utter_default:
+    - text: Извините, я этого не понял. Вы можете перефразировать?
+actions:
+  - utter_unhappy
+  - action_occupancy
+  - utter_slots_values
+  - restaurant_form
+forms:
+  appointment_form:
+    required_slots:
+      name:
+        - entity: PER
+          type: from_entity
+      reason:
+        - type: from_text
+      time:
+        - entity: TIME
+          type: from_entity
+e2e_actions: []
