@@ -1,0 +1,125 @@
+version: '2.0'
+config:
+  store_entities_as_slots: true
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: false
+intents:
+- ask_features:
+    use_entities: true
+- greet:
+    use_entities: true
+- goodbye:
+    use_entities: true
+- request_appointment:
+    use_entities: true
+- affirm:
+    use_entities: true
+- deny:
+    use_entities: true
+- mood_great:
+    use_entities: true
+- mood_unhappy:
+    use_entities: true
+- bot_challenge:
+    use_entities: true
+- faq:
+    use_entities: true
+- gratitude:
+    use_entities: true
+- student_name_entry:
+    use_entities: true
+- appointment_reason_entry:
+    use_entities: true
+- inform_name:
+    use_entities: true
+- inform_time:
+    use_entities: true
+- inform_reason:
+    use_entities: true
+- infrom_time:
+    use_entities: true
+- infrom_reason:
+    use_entities: true
+- out_of_scope:
+    use_entities: true
+- nlu_fallback:
+    use_entities: true
+entities:
+- faq
+- place
+- reason
+- PERSON
+- TIME
+slots:
+  name:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  reason:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  requested_slot:
+    type: rasa.shared.core.slots.UnfeaturizedSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  time:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+responses:
+  utter_please_rephrase:
+  - text: I'm sorry, I didn't quite understand that. Could you rephrase it differently?
+  utter_out_of_scope:
+  - text: Sorry, I can't handle that request.
+  utter_features:
+  - text: The features are bla bla bla
+  utter_greet:
+  - text: Hello! How can I help?
+  utter_cheer_up:
+  - image: https://i.imgur.com/nGF1K8f.jpg
+    text: Maybe this will make you feel better
+  utter_did_that_help:
+  - text: Did that help?
+  utter_happy:
+  - text: Great! Carry on.
+  utter_goodbye:
+  - text: Bye bye!
+  utter_iamabot:
+  - text: I am a robot.
+  utter_office_hours:
+  - text: Professor's office hours are from 12:00 PM to 1:00 PM
+  utter_welcome:
+  - text: You are welcome
+  utter_ask_name:
+  - text: What's your full name?
+  utter_ask_reason:
+  - text: What is the reason for the appointment?
+  utter_ask_time:
+  - text: What time do you want to meet?
+  utter_confirm_appointment:
+  - text: Everything is ready! Appointment for {name} with reason of "{reason}"" at {time} is booked.
+  utter_default:
+  - text: Sorry I didn't get that. Can you rephrase?
+actions:
+- utter_unhappy
+- action_occupancy
+- utter_slots_values
+- restaurant_form
+forms:
+  appointment_form:
+    required_slots:
+      name:
+      - entity: PERSON
+        type: from_entity
+      reason:
+      - type: from_text
+      time:
+      - entity: TIME
+        type: from_entity
+e2e_actions: []

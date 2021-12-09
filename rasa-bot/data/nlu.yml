@@ -1,0 +1,129 @@
+version: "2.0"
+nlu:
+  - intent: ask_features
+    examples: |
+      - What can you do?
+      - What can I ask?
+  - intent: request_appointment
+    examples: |
+      - Meet
+      - Meeting
+      - Schedule a meeting
+      - Appointment
+      - Schedule an appointment
+      - I want to meet with the professor
+      - I'd like to schedule a meeting
+      - I want to meet with the professor
+      - I want to schedule a meeting for 12:00 PM
+      - Meeting at 12 PM
+  - intent: greet
+    examples: |
+      - Hi
+      - Good Day
+      - Good Morning
+      - Hello! How are you!
+      - Good evening
+      - Hey
+      - What's up bot
+      - Heyo
+  - intent: goodbye
+    examples: |
+      - Bye
+      - Goodbye
+      - Good night
+      - Have a good day
+      - Sayonara
+      - See you later
+      - See ya
+      - Bye-bye
+  - intent: affirm
+    examples: |
+      - yes
+      - confirm
+      - of course
+      - positive
+      - Sounds good
+      - correct
+  - intent: deny
+    examples: |
+      - No
+      - Not at all
+      - never
+      - I don't think so
+      - Not really
+      - No way
+      - not really
+  - intent: mood_great
+    examples: |
+      - Great
+      - Perfect
+      - Good
+      - Amazing
+      - I am on top of the world
+      - incredible
+      - Feeling good 
+      - I'm good
+      - I'm great
+      - I'll save the world
+      - Very good
+      - So great
+      - So good
+      - Pretty good
+  - intent: mood_unhappy
+    examples: |
+      - My day was terrible
+      - I'm sad
+      - I don't feel so good
+      - I am dissapointed
+      - I feel sad
+      - So sad
+      - sad
+      - Very sad
+      - Unhappy
+      - Not great
+      - Not very good
+      - Very bad
+  - intent: bot_challenge
+    examples: |
+      - are you a bot?
+      - are you a human?
+      - am I talking to a bot?
+      - am I talking to a human?
+  - intent: gratitude
+    examples: |
+      - Thank you!
+      - thanks
+      - Thank you
+      - Thanks
+  - intent: faq
+    examples: |
+      - I'd like to know professors [office hours](faq) please
+      - What are prof's [office hours](faq)?
+      - When are the [office hours](faq)
+      - What is the [occupancy](faq) in the [gym](place)?
+
+  - intent: inform_name
+    examples: |
+      - Leonid Sorkin
+      - Todd Bryant
+      - Leo
+      - John
+
+  - intent: infrom_reason
+    examples: |
+      - I want to meet with the professor
+      - Discuss essay
+      - Talk about extra credit
+
+  - intent: infrom_time
+    examples: |
+      - Will [3:00 PM] work?
+      - [12:00 PM]
+      - [12]
+
+  - intent: out_of_scope
+    examples: |
+      - I want to order food.
+      - What 12 +122´
+      - How high is too high?
+      - What's the meaning of life?
