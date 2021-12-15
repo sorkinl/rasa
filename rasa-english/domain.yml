@@ -106,6 +106,8 @@ responses:
   - text: Everything is ready! Appointment for {name} with reason of "{reason}"" at {time} is booked.
   utter_default:
   - text: Sorry I didn't get that. Can you rephrase?
+  utter_initial_welcome:
+  - text: Hi, how can I help you?
 actions:
 - utter_unhappy
 - action_occupancy

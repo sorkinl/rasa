@@ -11,6 +11,12 @@ nlu:
       - Schedule a meeting
       - Appointment
       - Schedule an appointment
+      - Hi, I want to meet with the professor
+      - Hello, I'd like to schedule a meeting
+      - Howdy I want to meet with the professor
+      - Good day, I want to schedule a meeting for 12:00 PM
+      - Hey, I want to meet with the professor
+      - Good morning, I'd like to schedule a meeting
       - I want to meet with the professor
       - I'd like to schedule a meeting
       - I want to meet with the professor

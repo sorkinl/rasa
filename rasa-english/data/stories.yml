@@ -3,7 +3,7 @@ stories:
   - story: Request an appointment
     steps:
       - intent: greet
-      - action: utter_greet
+      - action: utter_initial_welcome
       - intent: request_appointment
       - action: appointment_form
       - active_loop: appointment_form
@@ -12,13 +12,13 @@ stories:
   - story: happy path
     steps:
       - intent: greet
-      - action: utter_greet
+      - action: utter_initial_welcome
       - intent: mood_great
       - action: utter_happy
   - story: sad path 1
     steps:
       - intent: greet
-      - action: utter_greet
+      - action: utter_initial_welcome
       - intent: mood_unhappy
       - action: utter_cheer_up
       - action: utter_did_that_help
@@ -27,7 +27,7 @@ stories:
   - story: sad path 2
     steps:
       - intent: greet
-      - action: utter_greet
+      - action: utter_initial_welcome
       - intent: mood_unhappy
       - action: utter_cheer_up
       - action: utter_did_that_help
@@ -36,6 +36,6 @@ stories:
   - story: Hi and appointment
     steps:
       - intent: greet
-      - action: utter_greet
+      - action: utter_initial_welcome
       - intent: ask_features
       - action: utter_features
