@@ -81,7 +81,7 @@ responses:
   utter_features:
     - text: Особенности бла-бла-бла
   utter_greet:
-    - text: Привет! Чем могу помочь?
+    - text: Привет!
   utter_cheer_up:
     - image: https://i.imgur.com/nGF1K8f.jpg
       text: Может, от этого тебе станет легче
@@ -93,6 +93,8 @@ responses:
     - text: Пока-пока!
   utter_iamabot:
     - text: Я робот.
+  utter_help:
+    - text: Чем вам помочь?
   utter_office_hours:
     - text: Режим работы профессора с 12:00 до 13:00.
   utter_welcome:
@@ -104,7 +106,7 @@ responses:
   utter_ask_time:
     - text: Во сколько?
   utter_confirm_appointment:
-    - text: Все готово! Запись на {name} по причине "{reason}" в {time} забронирована.
+    - text: Все готово! Запись на имя {name} по причине "{reason}" в {time} забронирована.
   utter_default:
     - text: Извините, я не понял. Вы можете перефразировать?
 actions:

@@ -8,6 +8,7 @@ pipeline:
     model: "ru_core_news_lg"
   - name: SpacyTokenizer
   - name: SpacyEntityExtractor
+    dimensions: ["PER"]
   - name: SpacyFeaturizer
     pooling: mean
   - name: RegexEntityExtractor
@@ -17,8 +18,9 @@ pipeline:
   #  analyzer: "char_wb"
   #  min_ngram: 1
   #  max_ngram: 4
-  #- name: DIETClassifier
-  #  epochs: 100
+  - name: DIETClassifier
+    dimensions: ["TIME"]
+    epochs: 300
   #- name: EntitySynonymMapper
   #- name: ResponseSelector
   #  epochs: 100
