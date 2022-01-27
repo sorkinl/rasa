@@ -19,7 +19,6 @@ pipeline:
   #  min_ngram: 1
   #  max_ngram: 4
   - name: DIETClassifier
-    dimensions: ["TIME"]
     epochs: 300
   #- name: EntitySynonymMapper
   #- name: ResponseSelector
