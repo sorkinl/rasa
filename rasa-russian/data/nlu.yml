@@ -103,10 +103,13 @@ nlu:
 
   - intent: inform_name
     examples: |
-      - [Leonid Sorkin](PER)
       - [Todd Bryant](PER)
-      - [Leo](PER)
       - [John](PER)
+
+  - intent: confirm_name
+    examples: |
+      - [NAME](PER)
+      - [FIRSTNAME LASTNAME](PER)
 
   - intent: infrom_reason
     examples: |

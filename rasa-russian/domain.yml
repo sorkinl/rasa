@@ -114,6 +114,7 @@ actions:
   - action_occupancy
   - utter_slots_values
   - restaurant_form
+  - action_default_ask_affirmation
 forms:
   appointment_form:
     required_slots:

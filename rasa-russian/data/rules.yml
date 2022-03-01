@@ -17,14 +17,21 @@ rules:
     steps:
       - intent: ask_features
       - action: utter_features
-  - rule: out-of-scope
-    steps:
-      - intent: out_of_scope
-      - action: utter_out_of_scope
-  - rule: Ask the user to rephrase whenever they send a message with low NLU confidence
+  # - rule: out-of-scope
+  #   steps:
+  #     - intent: out_of_scope
+  #     - action: utter_out_of_scope
+  - rule: Single stage fallback | ask user to choose what they meant
     steps:
       - intent: nlu_fallback
-      - action: utter_please_rephrase
+      - action: action_default_ask_affirmation
+
+  - rule: Single stage fallback | call default fallback if user is not ok
+    steps:
+      - action: action_default_ask_affirmation
+      - intent: out_of_scope
+      - action: action_default_fallback
+
   # - rule: Greet
   #   steps:
   #     - intent: greet
