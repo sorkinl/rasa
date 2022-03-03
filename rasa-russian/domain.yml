@@ -109,20 +109,23 @@ responses:
     - text: Все готово! Запись на имя {name} по причине "{reason}" в {time} забронирована.
   utter_default:
     - text: Извините, я не понял. Вы можете перефразировать?
+  utter_confirm_name:
+    - text: Я не могу найти имя. Можете перефразировать?
 actions:
   - utter_unhappy
   - action_occupancy
   - utter_slots_values
   - restaurant_form
   - action_default_ask_affirmation
+  - action_confirm_name
 forms:
   appointment_form:
     required_slots:
+      reason:
+        - type: from_text
       name:
         - entity: PER
           type: from_entity
-      reason:
-        - type: from_text
       time:
         - entity: TIME
           type: from_entity

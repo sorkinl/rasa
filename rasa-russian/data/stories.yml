@@ -42,3 +42,8 @@ stories:
     steps:
       - intent: ask_features
       - action: utter_features
+  - story: Confirm name
+    steps:
+      - action: utter_confirm_name
+      - intent: confirm_name
+      - action: action_confirm_name

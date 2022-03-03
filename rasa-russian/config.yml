@@ -7,8 +7,8 @@ pipeline:
   - name: SpacyNLP
     model: "ru_core_news_lg"
   - name: SpacyTokenizer
-  - name: SpacyEntityExtractor
-  - name: SpacyFeaturizer
+  #- name: SpacyEntityExtractor
+  #- name: SpacyFeaturizer
   - name: RegexFeaturizer
   - name: LexicalSyntacticFeaturizer
   - name: CountVectorsFeaturizer
@@ -25,7 +25,7 @@ pipeline:
     constrain_similarities: true
   # removed the FallbackClassifier from here
   - name: FallbackClassifier
-    threshold: 0.5
+    threshold: 0.7
     ambiguity_threshold: 0.1
 policies:
   - name: MemoizationPolicy

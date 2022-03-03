@@ -66,8 +66,22 @@ class ActionDefaultAskAffirmation(Action):
             "title": "Different Name",
             "payload": "/greet"
         })
-        dispatcher.utter_message(text=message, buttons=buttons)
+        if(tracker.slots["name"] == None):
+            dispatcher.utter_message(response="utter_confirm_name")
+        else:
+            dispatcher.utter_message(text=message, buttons=buttons)
+
         return [ActiveLoop(None)]
+
+
+class ActionConfirmName(Action):
+    def name(self):
+        return "action_confirm_name"
+
+    async def run(self, dispatcher, tracker, domain):
+        message = tracker.latest_message["text"]
+        dispatcher.utter_message(text=message)
+        return [SlotSet("name", message)]
 
 
 # a mapping between intents and user friendly wordings

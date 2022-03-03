@@ -108,8 +108,8 @@ nlu:
 
   - intent: confirm_name
     examples: |
-      - [NAME](PER)
-      - [FIRSTNAME LASTNAME](PER)
+      - [Леонид](PER)
+      - [Леонид Соркин](PER)
 
   - intent: infrom_reason
     examples: |
