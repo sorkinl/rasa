@@ -21,9 +21,9 @@ stories:
       - action: appointment_form
       - active_loop: appointment_form
       - active_loop: null
+      - action: utter_confirm_name
       - intent: inform_name
       - action: action_confirm_name
-      - action: appointment_form
       - active_loop: appointment_form
       - active_loop: null
       - action: utter_confirm_appointment

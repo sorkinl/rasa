@@ -66,13 +66,13 @@ class ActionDefaultAskAffirmation(Action):
             "title": "Different Name",
             "payload": "/greet"
         })
-        # if(tracker.slots["name"] == None):
-        #     dispatcher.utter_message(response="utter_confirm_name")
-        # else:
-        #     dispatcher.utter_message(text=message, buttons=buttons)
-        dispatcher.utter_message(response="utter_greet")
+        if(tracker.slots["name"] == None):
+            dispatcher.utter_message(response="utter_confirm_name")
+        else:
+            dispatcher.utter_message(text=message, buttons=buttons)
+        # dispatcher.utter_message(response="utter_greet")
 
-        return [ActiveLoop(None), SlotSet("name", "Leo")]
+        return [ActiveLoop(None)]
 
 #Message.set("intent", { "name": "inform_location"}, add_to_output=True)
 
@@ -84,8 +84,8 @@ class ActionConfirmName(Action):
     async def run(self, dispatcher, tracker, domain):
         message = tracker.latest_message["text"]
 
-        dispatcher.utter_message(response="request_appointment")
-        return [SlotSet("name", message)]
+        dispatcher.utter_message(response="appointment_form")
+        return [ActiveLoop("appointment_form"), SlotSet("name", message)]
 
 
 # a mapping between intents and user friendly wordings
