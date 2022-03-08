@@ -40,7 +40,7 @@ class ActionDefaultAskAffirmation(Action):
             "mood_unhappy": " No happy",
             "gratitude": "thanks bro",
             "confirm_name": "Yep that's my name",
-            "infrom_reason": "That's the reason"
+            "inform_reason": "That's the reason"
 
 
         }
@@ -66,12 +66,15 @@ class ActionDefaultAskAffirmation(Action):
             "title": "Different Name",
             "payload": "/greet"
         })
-        if(tracker.slots["name"] == None):
-            dispatcher.utter_message(response="utter_confirm_name")
-        else:
-            dispatcher.utter_message(text=message, buttons=buttons)
+        # if(tracker.slots["name"] == None):
+        #     dispatcher.utter_message(response="utter_confirm_name")
+        # else:
+        #     dispatcher.utter_message(text=message, buttons=buttons)
+        dispatcher.utter_message(response="utter_greet")
 
-        return [ActiveLoop(None)]
+        return [ActiveLoop(None), SlotSet("name", "Leo")]
+
+#Message.set("intent", { "name": "inform_location"}, add_to_output=True)
 
 
 class ActionConfirmName(Action):
@@ -80,7 +83,8 @@ class ActionConfirmName(Action):
 
     async def run(self, dispatcher, tracker, domain):
         message = tracker.latest_message["text"]
-        dispatcher.utter_message(text=message)
+
+        dispatcher.utter_message(response="request_appointment")
         return [SlotSet("name", message)]
 
 

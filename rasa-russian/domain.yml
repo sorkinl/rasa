@@ -37,10 +37,6 @@ intents:
       use_entities: true
   - inform_reason:
       use_entities: true
-  - infrom_time:
-      use_entities: true
-  - infrom_reason:
-      use_entities: true
   - out_of_scope:
       use_entities: true
   - nlu_fallback:

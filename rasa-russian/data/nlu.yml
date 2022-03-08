@@ -111,12 +111,12 @@ nlu:
       - [Леонид](PER)
       - [Леонид Соркин](PER)
 
-  - intent: infrom_reason
+  - intent: inform_reason
     examples: |
       - Обсудить сочинение
       - Я хочу поговорить о моей оценке
 
-  - intent: infrom_time
+  - intent: inform_time
     examples: |
       - Будет [15:00](TIME) работать?
       - [12:00](TIME)
