@@ -105,6 +105,15 @@ nlu:
     examples: |
       - [Todd Bryant](PER)
       - [John](PER)
+      - Меня зовут [Tohsaka](PER)
+      - Меня зовут [Сайбер](PER)
+      - Мое имя [Билли Ли](PER)
+      - [Рин Тосака](PER)
+      - [Мегумин](PER)
+      - Я [Арчер](PER)
+      - [Emiya Shirou](PER)
+      - [Leonid Sorkin](PER)
+      - [Raph Lee](PER)
 
   - intent: confirm_name
     examples: |
