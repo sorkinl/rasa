@@ -11,6 +11,7 @@ stories:
       - active_loop: appointment_form
       - active_loop: null
       - action: utter_confirm_appointment
+      - action: utter_story1
   - story: Request an appointment2
     steps:
       - intent: greet
@@ -22,6 +23,7 @@ stories:
       - active_loop: appointment_form
       - active_loop: null
       - action: utter_confirm_name
+      - action: utter_story2
       - intent: inform_name
       - action: action_confirm_name
       - active_loop: appointment_form

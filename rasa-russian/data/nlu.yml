@@ -114,6 +114,7 @@ nlu:
       - [Emiya Shirou](PER)
       - [Leonid Sorkin](PER)
       - [Raph Lee](PER)
+      - [АААА](PER)
 
   - intent: confirm_name
     examples: |

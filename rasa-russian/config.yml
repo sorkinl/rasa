@@ -7,7 +7,7 @@ pipeline:
   - name: SpacyNLP
     model: "ru_core_news_lg"
   - name: SpacyTokenizer
-  - name: SpacyEntityExtractor
+  # name: SpacyEntityExtractor
   #  - name: SpacyFeaturizer
   - name: RegexFeaturizer
   - name: LexicalSyntacticFeaturizer
