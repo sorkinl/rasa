@@ -4,27 +4,11 @@ nlu:
     examples: |
       - What can you do?
       - What can I ask?
-  - intent: request_appointment
-    examples: |
-      - Meet
-      - Meeting
-      - Schedule a meeting
-      - Appointment
-      - Schedule an appointment
-      - Hi, I want to meet with the professor
-      - Hello, I'd like to schedule a meeting
-      - Howdy I want to meet with the professor
-      - Good day, I want to schedule a meeting for 12:00 PM
-      - Hey, I want to meet with the professor
-      - Good morning, I'd like to schedule a meeting
-      - I want to meet with the professor
-      - I'd like to schedule a meeting
-      - I want to meet with the professor
-      - I want to schedule a meeting for 12:00 PM
-      - Meeting at 12 PM
   - intent: greet
     examples: |
+      - NonesenseFirstLineAgain
       - Hi
+      - Hi, how are you?
       - Good Day
       - Good Morning
       - Hello! How are you!
@@ -44,7 +28,14 @@ nlu:
       - Bye-bye
   - intent: affirm
     examples: |
+      - FirstLineDoesNotWorkSoEnterBS
       - yes
+      - that's right
+      - that's correct
+      - that's true
+      - that's right.
+      - that's correct.
+      - that's true.
       - confirm
       - of course
       - positive
@@ -69,6 +60,11 @@ nlu:
       - incredible
       - Feeling good 
       - I'm good
+      - I'm good, thanks
+      - I'm good, thanks.
+      - I'm good.
+      - I am good
+      - I am well
       - I'm great
       - I'll save the world
       - Very good
@@ -106,22 +102,59 @@ nlu:
       - I'd like to know professors [office hours](faq) please
       - What are prof's [office hours](faq)?
       - When are the [office hours](faq)
-      - What is the [occupancy](faq) in the [gym](place)?
+      - What is the [occupancy](faq)?
 
-  - intent: inform_name
+  - intent: inform_location
     examples: |
-      - Leonid Sorkin
-      - Todd Bryant
-      - Leo
-      - John
+      - I went to [Paris](location) for vacation
+      - I went to [Berlin](location) for vacation
+      - I went to [Germany](location) last week
+      - I went to [Pittsburgh](location) with my mother
+      - I went to [Pittsburgh](location)
+      - I went to [Pittsburgh](location) on vacation
+      - I went to [Lake Erie](location) on vacation
+      - I went to [the Applachian Mountains](location) on vacation
+      - I went to [California](location) with friends
+      - I went to [Yosemite](location) on vacation
+      - I went to see [the Great Wall of China](location) on vacation
+      - I went to [Hawaii](location) on vacation
+      - I went to [Tennessee](location) last month
+      - I went to [Austin](location) to go hiking
+      - I went to [Beijing](location) to visit friends
+      - I went to [Nashville, Tennessee](location) to see the opera house
+      - I went to [Austin](location) to see the university
+      - I went to [Beijing](location) to the the capital
+      - I went to [China](location) because we wanted to try the food
+      - I went to [Boston](location) to visit my family
+      - We went to [New Hampshire](location)
+      - We went to [New York](location)
+      - We went to [Tennessee](location)
+      - We went to [Austin](location)
+      - We went to [Beijing](location)
+      - We went to [China](location)
+      - We went to [Boston](location)
+      - We traveled to [Japan](location) to visit family.
+      - I went hiking in the [Rocky Mountains](location)
+      - My family and I went camping in [the Alps](location)
+      - We flew to [Mexico](location) and went surfing.
+      - My family and I went hiking at [Yosemite National Park](location)
+      - We went to [Washington DC](location) to visit the museums.
 
-  - intent: infrom_reason
+  - intent: inform_reason_trip
     examples: |
-      - I want to meet with the professor
-      - Discuss essay
-      - Talk about extra credit
+      - I wanted to see the Eiffel Tower.
+      - We wanted to go hiking.
+      - It's beautiful there and the weather is nice.
+      - We visited family.  
+      - It's famous for shopping and museums.
+      - We wanted to go swimming, hang out on the beach and see the ocean.
+      - We go there every year.  It's a lot of fun and there's a lot to do.
+      - I wanted to see my friends.
+      - We have family there.
+      - I enjoy traveling.  There's a lot to see there.
 
-  - intent: infrom_time
+
+  - intent: inform_time
     examples: |
       - Will [3:00 PM] work?
       - [12:00 PM]
@@ -133,3 +166,44 @@ nlu:
       - What 12 +122´
       - How high is too high?
       - What's the meaning of life?
+
+  - intent: supply_trip_info
+    examples: |
+      - My name is [John](name). 
+      - name: [David](name) 
+      - Yeah sure. 
+      - [Susan](name), 
+      - Sure. It's [Jim](name).
+      - Sure. It's [John](name).
+      - Sure. It's [Lee](name). 
+      - Sure. It's [Frank](name). 
+      - Sure. It's [Fred](name). 
+      - Sure. It's [Zha](name).
+      - My name is [Pat](name). 
+      - My name is [Brenda](name). 
+      - My name is [Tom](name). 
+      - My name is [Leo](name). 
+      - My name is [Jorge](name). 
+      - My name is [Akiko](name).
+      - I am [Todd](name) and I went to [Pittsburgh](location).
+      - I went to [Paris](location) for vacation
+      - I went to [Berlin](location) for vacation
+      - I went to [Germany](location) last week
+      - My name is [Sam](name) and I went to [Pittsburgh](location) with my mother
+      - My name is [Samantha](name) and I traveled to Pittsburgh](location)
+      - My name is [Bill](name) and I went to [Pittsburgh](location) on vacation
+      - My name is [William](name) and I went to [Lake Erie](location) on vacation
+      - My name is [Luis](name) and I went to [the Applachian Mountains](location) on vacation
+      - My name is [Mariana](name) and I went to [California](location) with friends
+      - My name is [Anna](name) and I went to [Yosemite](location) on vacation
+      - My name is [Brandon](name) and I went to see [the Great Wall of China](location) on vacation
+      - My name is [Zolboo](name) and I went to [Hawaii](location) on vacation
+      - My name is [Keson](name) and I went to [Tennessee](location) last month
+      - My name is [Carter](name) and I went to [Austin](location) to go hiking
+      - My name is [Ashton](name) and I went to [Beijing](location) to visit friends
+      - I am  [Alvin](name). I went to [Nashville, Tennessee](location) to see the opera house
+      - I am  [Amy](name). I went to [Austin](location) to see the university
+      - I am  [Barbara](name). I went to [Beijing](location) to the the capital
+      - I am  [David](name). I went to [China](location) because we wanted to try the food
+      - I am  [Diana](name). I went to [Boston](location) to visit my family
+

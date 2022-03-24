@@ -11,8 +11,6 @@ intents:
     use_entities: true
 - goodbye:
     use_entities: true
-- request_appointment:
-    use_entities: true
 - affirm:
     use_entities: true
 - deny:
@@ -27,51 +25,36 @@ intents:
     use_entities: true
 - gratitude:
     use_entities: true
-- student_name_entry:
+- inform_reason_trip:
     use_entities: true
-- appointment_reason_entry:
-    use_entities: true
-- inform_name:
+- inform_enjoy:
     use_entities: true
 - inform_time:
-    use_entities: true
-- inform_reason:
-    use_entities: true
-- infrom_time:
-    use_entities: true
-- infrom_reason:
     use_entities: true
 - out_of_scope:
     use_entities: true
 - nlu_fallback:
     use_entities: true
+- inform_location:
+    use_entities: true
+- confirm_location:
+    use_entities: true
+- supply_trip_info:
+    use_entities: true
 entities:
-- faq
-- place
-- reason
-- PERSON
-- TIME
+- name
+- location
 slots:
   name:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
     auto_fill: true
-    influence_conversation: false
-  reason:
+    influence_conversation: true
+  location:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
     auto_fill: true
-    influence_conversation: false
-  requested_slot:
-    type: rasa.shared.core.slots.UnfeaturizedSlot
-    initial_value: null
-    auto_fill: true
-    influence_conversation: false
-  time:
-    type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
-    influence_conversation: false
+    influence_conversation: true
 responses:
   utter_please_rephrase:
   - text: I'm sorry, I didn't quite understand that. Could you rephrase it differently?
@@ -88,40 +71,74 @@ responses:
   - text: Did that help?
   utter_happy:
   - text: Great! Carry on.
-  utter_goodbye:
-  - text: Bye bye!
   utter_iamabot:
   - text: I am a robot.
   utter_office_hours:
   - text: Professor's office hours are from 12:00 PM to 1:00 PM
   utter_welcome:
   - text: You are welcome
+  utter_ask_enjoy:
+  - text: Did you have fun?  What did you do?  How was the weather?  Do anything outdoors? 
   utter_ask_name:
   - text: What's your full name?
-  utter_ask_reason:
-  - text: What is the reason for the appointment?
+  utter_ask_location:
+  - text: Where did you go?
+  utter_ask_reason_trip:
+  - text: Wow, I've never been to {location}.  What are some reasons for me to go?  I like to do things outdoors.  I also believe it's good to have a cultural experience when I travel.
   utter_ask_time:
   - text: What time do you want to meet?
-  utter_confirm_appointment:
-  - text: Everything is ready! Appointment for {name} with reason of "{reason}"" at {time} is booked.
+  utter_confirm_trip:
+  - text: Thanks for telling me about your {location} trip, {name} I have to go but it was good talking to you.  See you.
   utter_default:
   - text: Sorry I didn't get that. Can you rephrase?
   utter_initial_welcome:
-  - text: Hi, how can I help you?
+  - text: Hi
+  utter_ask_how_are_you:
+  - text: How are you?
+  utter_ask_trip:
+  - text: I heard you went on trip.  Is that right?
+  utter_confirm_location:
+  - text: Sorry, I'm just a bot, can you just enter your location?
+  utter_test1:
+  - text: test1
+  utter_test2:
+  - text: test2
+  utter_test3:
+  - text: test3
+  utter_ask_trip_info:
+  - text: Hello! I heard you went on a trip.  Could you tell me your name and where you went?
+  utter_acknowledge_no_info:
+  - text: Sorry, you'll have to provide your information to proceed.
+  utter_goodbye:
+  - text: Thanks for your time!
+  utter_ask_for_trip:
+  - text: Thanks. Could you tell me where you went as well?
+  utter_ask_for_name:
+  - text: Thanks. Could you provide your name as well?
+  utter_ask_rephrase:
+  - text: I'm sorry, I didn't quite understand that. Could you rephrase?
 actions:
-- utter_unhappy
-- action_occupancy
-- utter_slots_values
-- restaurant_form
-forms:
-  appointment_form:
-    required_slots:
-      name:
-      - entity: PERSON
-        type: from_entity
-      reason:
-      - type: from_text
-      time:
-      - entity: TIME
-        type: from_entity
-e2e_actions: []
+  - utter_unhappy
+  - action_occupancy
+  - utter_slots_values
+  - action_default_ask_affirmation
+  - action_default_fallback
+  - action_confirm_location
+  - utter_confirm_location
+  - utter_test1
+  - utter_test2
+  - utter_test3
+  - action_handle_provided_info
+  - action_default_fallback
+  - action_default_ask_affirmation 
+#forms:
+#  trip_form:
+#    required_slots:
+#      location:
+#      - type: from_entity
+#        entity: location
+#      enjoy:
+#      - type: from_text
+#      reason_trip:
+#      - type: from_text
+#e2e_actions: []

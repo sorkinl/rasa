@@ -21,12 +21,19 @@ rules:
     steps:
       - intent: out_of_scope
       - action: utter_out_of_scope
-  - rule: Ask the user to rephrase whenever they send a message with low NLU confidence
+# single stage fallback:
+  - rule: Implementation of the Single stage fallback | ask user to choose what they meant
     steps:
       - intent: nlu_fallback
-      - action: utter_please_rephrase
-  - rule: welcome user
-    conversation_start: true  # this rule only applies at the beginning of a conversation
+      - action: action_default_ask_affirmation
+
+  - rule: Implementation of the Single stage fallback | call default fallback if user is not ok
     steps:
-      - intent: greet
-      - action: utter_initial_welcome
+      - action: action_default_ask_affirmation
+      - intent: out_of_scope
+      - action: action_default_fallback
+#  - rule: welcome user
+#    conversation_start: true  # this rule only applies at the beginning of a conversation
+#    steps:
+#      - intent: greet
+#      - action: utter_initial_welcome
