@@ -138,8 +138,8 @@ class ActionDefaultAskAffirmation(Action):
                 }
             ]
         #should we do button or no buttons and just enter our last best guess regardless?
-        #dispatcher.utter_message(buttons=buttons)
-        dispatcher.utter_message("going to call you by your last message")
+        dispatcher.utter_message(buttons=buttons)
+        #dispatcher.utter_message("going to call you by your last message")
         #return []
         #lastOutput2 = tracker.latest_message['text']
         #That attempt above doesn't works, so can only get latest message to be the one before they entered fallback function
