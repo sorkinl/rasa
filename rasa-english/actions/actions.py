@@ -24,7 +24,7 @@ class ActionHandleProvidedInfo(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        print('In ActionHandleProvidedInfo')
+        print('In ActionHandleProvidedInfo!')
         name = tracker.get_slot('name')
         location = tracker.get_slot('location')
 
@@ -44,8 +44,8 @@ class ActionHandleProvidedInfo(Action):
 
         if name and location:
             dispatcher.utter_message(
-                text="Thanks for the information!"\
-                    "What would you like to do next1?"
+                text="From out custom action ActionHandleProvidedInfo - Thanks for tell me about your trip " + name + "."\
+                    "I'll think about going to " + location + " next time."
             )
             dispatcher.utter_message(buttons=buttons)
         
@@ -76,16 +76,16 @@ class ActionDefaultFallback(Action):
         # pause tracker
         # undo last user interaction
         #return [ConversationPaused(), UserUtteranceReverted()]
-        print('In ActionDefaultFallback')
+        print('In ActionDefaultFallback!')
         name = tracker.get_slot('name')
         location = tracker.get_slot('location')
 
         if name and location:
             dispatcher.utter_message(
-                text="Thanks for the information!"\
-                    "What would you like to do next2?"
+                text="From out custom action ActionDefaultFallback - Thanks for tell me about your trip " + name + "."\
+                    "I'll think about going to " + location + " next time."
             )
-            dispatcher.utter_message(buttons=buttons)
+            #dispatcher.utter_message(buttons=buttons)
         
         # if valid information isn't provided,
         # ask the user for the information
@@ -105,16 +105,18 @@ class ActionDefaultAskAffirmation(Action):
         return "action_default_ask_affirmation"
 
     async def run(self, dispatcher, tracker, domain):
-        print('In ActionDefaultAskAffirmation')
+        print('In ActionDefaultAskAffirmation!!')
         name = tracker.get_slot('name')
         location = tracker.get_slot('location')
-
+#We'll probably need to put if statments here to get the intent, and then use that to set the slot
+#right now we only have one story, but this will grow.  Think about how to handle this.
         if name and location:
             dispatcher.utter_message(
-                text="Thanks for the information!"\
-                    "What would you like to do next3?"
+                text="From out custom action ActionDefaultAskAffirmation - Thanks for tell me about your trip " + name + "."\
+                    "I'll think about going to " + location + " next time."
             )
             #dispatcher.utter_message(buttons=buttons)
+            return[]
         
         # if valid information isn't provided,
         # ask the user for the information
@@ -124,8 +126,22 @@ class ActionDefaultAskAffirmation(Action):
             dispatcher.utter_message(response="utter_ask_for_location")
 
         elif location:
-            dispatcher.utter_message(text="Invalid data 3b.")
-            dispatcher.utter_message(response="utter_ask_for_name")
-
-        return []
+            #dispatcher.utter_message(text="Invalid data 3b. I'm going to call you Bob.")
+            #dispatcher.utter_message(response="utter_ask_for_name")
+            print("message is " + tracker.latest_message['text'], "text")
+            #We could do some Python here to extract our best guess from the whole previous string for their name.
+            lastOutput = tracker.latest_message['text']
+            buttons = [
+                {
+                    'title': "Can I call you " + lastOutput,
+                    'payload': '/gave_name'
+                }
+            ]
+        #should we do button or no buttons and just enter our last best guess regardless?
+        #dispatcher.utter_message(buttons=buttons)
+        dispatcher.utter_message("going to call you by your last message")
+        #return []
+        #lastOutput2 = tracker.latest_message['text']
+        #That attempt above doesn't works, so can only get latest message to be the one before they entered fallback function
+        return [SlotSet("name", lastOutput)]
 

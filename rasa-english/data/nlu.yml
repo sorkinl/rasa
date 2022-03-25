@@ -169,22 +169,6 @@ nlu:
 
   - intent: supply_trip_info
     examples: |
-      - My name is [John](name). 
-      - name: [David](name) 
-      - Yeah sure. 
-      - [Susan](name), 
-      - Sure. It's [Jim](name).
-      - Sure. It's [John](name).
-      - Sure. It's [Lee](name). 
-      - Sure. It's [Frank](name). 
-      - Sure. It's [Fred](name). 
-      - Sure. It's [Zha](name).
-      - My name is [Pat](name). 
-      - My name is [Brenda](name). 
-      - My name is [Tom](name). 
-      - My name is [Leo](name). 
-      - My name is [Jorge](name). 
-      - My name is [Akiko](name).
       - I am [Todd](name) and I went to [Pittsburgh](location).
       - I went to [Paris](location) for vacation
       - I went to [Berlin](location) for vacation
@@ -206,4 +190,33 @@ nlu:
       - I am  [Barbara](name). I went to [Beijing](location) to the the capital
       - I am  [David](name). I went to [China](location) because we wanted to try the food
       - I am  [Diana](name). I went to [Boston](location) to visit my family
+
+  - intent: gave_name
+    examples: |
+      - [John](name).
+      - [Sam](name). 
+      - [Amy](name). 
+      - [Alexia](name). 
+      - [Juan](name). 
+      - [Lee](name). 
+      - [Xin](name). 
+      - [Ma](name) 
+      - [Ralph](name) 
+      - [Brenda](name)
+      - [Mariana](name)
+      - My name is [John](name). 
+      - name: [David](name)  
+      - [Susan](name) 
+      - Sure. It's [Jim](name).
+      - Sure. It's [John](name).
+      - Sure. It's [Lee](name). 
+      - Sure. It's [Frank](name). 
+      - Sure. It's [Fred](name). 
+      - Sure. It's [Zha](name).
+      - My name is [Pat](name). 
+      - My name is [Brenda](name). 
+      - My name is [Tom](name). 
+      - My name is [Leo](name). 
+      - My name is [Jorge](name). 
+      - My name is [Akiko](name).
 

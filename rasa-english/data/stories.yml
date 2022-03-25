@@ -17,12 +17,13 @@ stories:
     - intent: supply_trip_info
       entities:
         - name
-    - action: utter_ask_for_trip
+    - action: utter_ask_for_trip_location
     - intent: supply_trip_info
       entities:
         - location
     - action: utter_test2
     - action: action_handle_provided_info
+    - action: utter_confirm_trip
 
 - story: user gives only location
   steps:
@@ -35,6 +36,8 @@ stories:
         - name
     - action: utter_test3
     - action: action_handle_provided_info
+    - intent: gave_name
+    - action: utter_confirm_trip
 
 - story: user wants to give info
   steps:
@@ -45,6 +48,7 @@ stories:
         - name
         - location
     - action: action_handle_provided_info
+    - action: utter_confirm_trip
 
 - story: user doesn't want to provide information
   steps:
