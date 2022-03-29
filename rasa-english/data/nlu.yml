@@ -190,9 +190,6 @@ nlu:
       - I am  [Barbara](name). I went to [Beijing](location) to the the capital
       - I am  [David](name). I went to [China](location) because we wanted to try the food
       - I am  [Diana](name). I went to [Boston](location) to visit my family
-
-  - intent: gave_name
-    examples: |
       - [John](name).
       - [Sam](name). 
       - [Amy](name). 
@@ -220,3 +217,9 @@ nlu:
       - My name is [Jorge](name). 
       - My name is [Akiko](name).
 
+#  - intent: give_name
+#    examples: |
+
+#  We never want this intent to be triggered by user text, only via an action.
+  - intent: gave_name
+    examples: |

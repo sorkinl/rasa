@@ -41,6 +41,8 @@ intents:
     use_entities: true
 - supply_trip_info:
     use_entities: true
+- give_name:
+    use_entities: true
 - gave_name:
     use_entities: true
 entities:
