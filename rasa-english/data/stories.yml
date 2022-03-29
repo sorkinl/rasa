@@ -47,7 +47,8 @@ stories:
 #
 #OK, I think I have it. Once you get to entity name above, if you enter nonsense, not sure what to do.  So it's going into your NLU fallback rule
 #which then sends it to affirmation.  There it gives the button and also set the intent to gave_name.  That kicks it back out here in the story 
-#(skipping the utter_test3 and the handle provided info action). 
+#(skipping the utter_test3 and the handle provided info action). I'm hoping since we set the slot in the function and don't ask for 
+#entity below (commented out) it will take it and not check confidence.  It seems to accept pretty much everything as is.
 #      entities:
 #        - name
     - action: utter_confirm_trip
