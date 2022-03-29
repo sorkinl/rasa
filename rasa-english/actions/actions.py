@@ -47,7 +47,7 @@ class ActionHandleProvidedInfo(Action):
                 text="From out custom action ActionHandleProvidedInfo - Thanks for tell me about your trip " + name + "."\
                     "I'll think about going to " + location + " next time."
             )
-            dispatcher.utter_message(buttons=buttons)
+            #dispatcher.utter_message(buttons=buttons)
         
         # if valid information isn't provided,
         # ask the user for the information
@@ -110,6 +110,10 @@ class ActionDefaultAskAffirmation(Action):
         location = tracker.get_slot('location')
 #We'll probably need to put if statments here to get the intent, and then use that to set the slot
 #right now we only have one story, but this will grow.  Think about how to handle this.
+
+#FYI - rasa will fill this slot even if it isn't sure.  So here if enter something with a confidence of .6
+#rasa will fill the slot and conclude conversation below if DietClassifier can pull a value out.
+#So to improve this, maybe we should check confidence here and not run this confirm unless confidence high.  Otherwise, give the buttons.
         if name and location:
             dispatcher.utter_message(
                 text="From out custom action ActionDefaultAskAffirmation - Thanks for tell me about your trip " + name + "."\
@@ -128,17 +132,17 @@ class ActionDefaultAskAffirmation(Action):
         elif location:
             #dispatcher.utter_message(text="Invalid data 3b. I'm going to call you Bob.")
             #dispatcher.utter_message(response="utter_ask_for_name")
-            print("message is " + tracker.latest_message['text'], "text")
+            print("message is " + tracker.latest_message['text'], "text2")
             #We could do some Python here to extract our best guess from the whole previous string for their name.
             lastOutput = tracker.latest_message['text']
             buttons = [
                 {
-                    'title': "Can I call you " + lastOutput,
+                    'title': "I can call you:  " + lastOutput,
                     'payload': '/gave_name'
                 }
             ]
         #should we do button or no buttons and just enter our last best guess regardless?
-        dispatcher.utter_message(buttons=buttons)
+        dispatcher.utter_message(text="Click the button below", buttons=buttons)
         #dispatcher.utter_message("going to call you by your last message")
         #return []
         #lastOutput2 = tracker.latest_message['text']

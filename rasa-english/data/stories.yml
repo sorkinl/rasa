@@ -36,7 +36,20 @@ stories:
         - name
     - action: utter_test3
     - action: action_handle_provided_info
+#This intent allows us to finish.  Not totally sure why, but if enter name as total nonsense above it just stops
+#First try to add entities: name below the intent like above.  If not, add a different utter_confirm_trip_without_name
+#Because as it, it says "Thanks for tell me about your trip None" because slot isn't filled.
+#This trick may be useful in the future.  Without the entity below, it just moves on even if slot isn't filled?
     - intent: gave_name
+#It works better with this below commented out.  It just takes Xccv as a name and confirms.  Not sure why because seems like with it
+# the story is stuck above waiting for an entity name with some confidence and never makes it to utter_test3.  Is the slot already filled?
+#In the demo code we use, they always end story with the action_handle_provided_info.  Maybe this is a limitation.
+#
+#OK, I think I have it. Once you get to entity name above, if you enter nonsense, not sure what to do.  So it's going into your NLU fallback rule
+#which then sends it to affirmation.  There it gives the button and also set the intent to gave_name.  That kicks it back out here in the story 
+#(skipping the utter_test3 and the handle provided info action). 
+#      entities:
+#        - name
     - action: utter_confirm_trip
 
 - story: user wants to give info

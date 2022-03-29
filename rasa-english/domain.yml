@@ -108,7 +108,7 @@ responses:
   utter_test3:
   - text: test3
   utter_ask_trip_info:
-  - text: Hello! I heard you went on a trip.  Could you tell me your name and where you went?
+  - text: Hello! I heard you went on a trip.  Could you tell me your name and where you went?2
   utter_acknowledge_no_info:
   - text: Sorry, you'll have to provide your information to proceed.
   utter_goodbye:
@@ -116,7 +116,7 @@ responses:
   utter_ask_for_trip_location:
   - text: Thanks. Could you tell me where you went as well?
   utter_ask_for_name:
-  - text: Thanks. Could you provide your name as well?
+  - text: Thanks. Could you also tell me your first name?
   utter_ask_rephrase:
   - text: I'm sorry, I didn't quite understand that. Could you rephrase?
 actions:
