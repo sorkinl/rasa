@@ -5,6 +5,8 @@ session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: false
 intents:
+  - supply_meeting_info:
+      use_entities: true
   - ask_features:
       use_entities: true
   - greet:
@@ -48,6 +50,8 @@ entities:
   - PERSON
   - TIME
   - PER
+  - name
+  - time
 slots:
   name:
     type: rasa.shared.core.slots.TextSlot
@@ -70,6 +74,12 @@ slots:
     auto_fill: true
     influence_conversation: false
 responses:
+  utter_ask_meeting_info:
+    - text: Как вас зовут и во сколько вы хотите встретится?
+  utter_ask_for_time:
+    - text: Во сколько вы хотите встретится?
+  utter_ask_for_name:
+    - text: Как вас зовут?
   utter_please_rephrase:
     - text: Простите, я не совсем понял. Не могли бы вы перефразировать?
   utter_out_of_scope:
@@ -111,6 +121,14 @@ responses:
     - text: Story 1
   utter_story2:
     - text: Story 2
+  utter_test1:
+    - text: test 1
+  utter_test2:
+    - text: test 2
+  utter_test3:
+    - text: test 3
+  utter_confirm_meetings:
+    - text: Name {name} time {time}
 actions:
   - utter_unhappy
   - action_occupancy
@@ -118,15 +136,16 @@ actions:
   - restaurant_form
   - action_default_ask_affirmation
   - action_confirm_name
-forms:
-  appointment_form:
-    required_slots:
-      reason:
-        - type: from_text
-      name:
-        - entity: PER
-          type: from_entity
-      time:
-        - entity: TIME
-          type: from_entity
+  - action_handle_provided_info
+# forms:
+#   appointment_form:
+#     required_slots:
+#       reason:
+#         - type: from_text
+#       name:
+#         - entity: PER
+#           type: from_entity
+#       time:
+#         - entity: TIME
+#           type: from_entity
 e2e_actions: []

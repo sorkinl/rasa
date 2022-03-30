@@ -1,47 +1,5 @@
 version: "2.0"
 stories:
-  - story: Request an appointment
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: greet
-      - action: utter_help
-      - intent: request_appointment
-      - action: appointment_form
-      - active_loop: appointment_form
-      - active_loop: null
-      - action: utter_confirm_appointment
-      - action: utter_story1
-  - story: Request an appointment2
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: greet
-      - action: utter_help
-      - intent: request_appointment
-      - action: appointment_form
-      - active_loop: appointment_form
-      - active_loop: null
-      - action: utter_confirm_name
-      - action: utter_story2
-      - intent: inform_name
-      - action: action_confirm_name
-      - active_loop: appointment_form
-      - active_loop: null
-      - action: utter_confirm_appointment
-  - story: Request an appointment
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: request_appointment
-      - action: appointment_form
-      - active_loop: appointment_form
-      - active_loop: null
-      - action: utter_confirm_appointment
-  - story: happy path
-    steps:
-      - intent: mood_great
-      - action: utter_happy
   - story: sad path 1
     steps:
       - intent: mood_unhappy
@@ -65,3 +23,38 @@ stories:
       - action: utter_confirm_name
       - intent: confirm_name
       - action: action_confirm_name
+
+  - story: user gives info
+    steps:
+      - intent: greet
+      - action: utter_ask_meeting_info
+      - intent: supply_meeting_info
+        entities:
+          - name
+          - time
+      - action: action_handle_provided_info
+      - action: utter_test1
+      - action: utter_confirm_meetings
+  - story: user gives only name
+    steps:
+      - intent: supply_meeting_info
+        entities:
+          - name
+      - action: utter_ask_for_time
+      - intent: supply_meeting_info
+        entities:
+          - time
+      - action: utter_test2
+      - action: action_handle_provided_info
+
+  - story: user gives only location
+    steps:
+      - intent: supply_meeting_info
+        entities:
+          - time
+      - action: utter_ask_for_name
+      - intent: supply_meeting_info
+        entities:
+          - name
+      - action: utter_test3
+      - action: action_handle_provided_info

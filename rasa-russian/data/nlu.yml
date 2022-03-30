@@ -134,6 +134,33 @@ nlu:
       - В [8 вечера](TIME)
       - В [11 утра](TIME)
 
+  - intent: supply_meeting_info
+    examples: |
+      - Меня зовут [Леонид](name). В [10 утра](time).
+      - Меня зовут [Leonard](name). В [11 вечера](time).
+      - Меня зовут [Howard](name). В [6 утра](time).
+      - Меня зовут [Раджеш](name). В [2](time).
+      - Меня зовут [Фред](name). В [4 утра](time).
+      - Меня зовут [Джордж](name). В [9 вечера](time).
+      - Меня зовут [Рон](name). В [3](time).
+      - Меня зовут [Harry](name). В [12 вечера](time).
+      - Я [Тодд](name).
+      - Я [Megan](name).
+      - Я [Roy](name).
+      - Я [Борис](name).
+      - Я [Александр](name).
+      - Я [Максим](name).
+      - Я [Billy](name).
+      - Я [Alex](name).
+      - [Адуч](name), в [4 вечера](time).
+      - [Махмуч](name), в [2 утра](time).
+      - [Ронан](name), в [1 вечера](time).
+      - [Тор](name), в [6:00 pm](time).
+      - [Tony](name), в [7:00 am](time).
+      - [Steven](name), в [8 утра](time).
+      - [Peter](name), в [9 вечера](time).
+      - [Рокета](name), в [3](time).
+
   - intent: out_of_scope
     examples: |
       - Я хочу заказать еду.
