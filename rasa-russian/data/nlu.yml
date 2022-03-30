@@ -101,38 +101,38 @@ nlu:
       - Когда [office hours] (faq)
       - Какая [occupancy] (faq) в [gym] (place)?
 
-  - intent: inform_name
-    examples: |
-      - [Todd Bryant](PER)
-      - [John](PER)
-      - Меня зовут [Tohsaka](PER)
-      - Меня зовут [Сайбер](PER)
-      - Мое имя [Билли Ли](PER)
-      - [Рин Тосака](PER)
-      - [Мегумин](PER)
-      - Я [Арчер](PER)
-      - [Emiya Shirou](PER)
-      - [Leonid Sorkin](PER)
-      - [Raph Lee](PER)
-      - [АААА](PER)
+  # - intent: inform_name
+  #   examples: |
+  #     - [Todd Bryant](PER)
+  #     - [John](PER)
+  #     - Меня зовут [Tohsaka](PER)
+  #     - Меня зовут [Сайбер](PER)
+  #     - Мое имя [Билли Ли](PER)
+  #     - [Рин Тосака](PER)
+  #     - [Мегумин](PER)
+  #     - Я [Арчер](PER)
+  #     - [Emiya Shirou](PER)
+  #     - [Leonid Sorkin](PER)
+  #     - [Raph Lee](PER)
+  #     - [АААА](PER)
 
-  - intent: confirm_name
-    examples: |
-      - [Леонид](PER)
-      - [Леонид Соркин](PER)
+  # - intent: confirm_name
+  #   examples: |
+  #     - [Леонид](PER)
+  #     - [Леонид Соркин](PER)
 
-  - intent: inform_reason
-    examples: |
-      - Обсудить сочинение
-      - Я хочу поговорить о моей оценке
+  # - intent: inform_reason
+  #   examples: |
+  #     - Обсудить сочинение
+  #     - Я хочу поговорить о моей оценке
 
-  - intent: inform_time
-    examples: |
-      - Будет [15:00](TIME) работать?
-      - [12:00](TIME)
-      - [12](TIME)
-      - В [8 вечера](TIME)
-      - В [11 утра](TIME)
+  # - intent: inform_time
+  #   examples: |
+  #     - Будет [15:00](TIME) работать?
+  #     - [12:00](TIME)
+  #     - [12](TIME)
+  #     - В [8 вечера](TIME)
+  #     - В [11 утра](TIME)
 
   - intent: supply_meeting_info
     examples: |
