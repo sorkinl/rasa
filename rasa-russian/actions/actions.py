@@ -12,7 +12,7 @@ from rasa.shared.nlu.training_data.message import Message
 
 
 class ActionHandleProvidedInfo(Action):
-    def name(self):
+    def name(self) -> Text:
         return "action_handle_provided_info"
 
     def run(self, dispatcher: CollectingDispatcher,
@@ -20,8 +20,8 @@ class ActionHandleProvidedInfo(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         print('In ActionHandleProvidedInfo!')
         name = tracker.get_slot('name')
-        location = tracker.get_slot('location')
-
+        time = tracker.get_slot('time')
+        print(time, name)
         buttons = [
             {
                 'title': "That's all",
@@ -36,10 +36,10 @@ class ActionHandleProvidedInfo(Action):
         # if name and location are provided, show
         # the user further options
 
-        if name and location:
+        if name and time:
             dispatcher.utter_message(
                 text="From out custom action ActionHandleProvidedInfo - Thanks for tell me about your trip " + name + "."
-                "I'll think about going to " + location + " next time."
+                "I'll think about going to " + time + " next time."
             )
             # dispatcher.utter_message(buttons=buttons)
 
@@ -48,11 +48,11 @@ class ActionHandleProvidedInfo(Action):
         # again.
         elif name:
             dispatcher.utter_message(text="Invalid data 1a.")
-            dispatcher.utter_message(response="utter_ask_for_location")
+            # dispatcher.utter_message(response="utter_ask_for_time")
 
-        elif location:
+        elif time:
             dispatcher.utter_message(text="Invalid data 1b.")
-            dispatcher.utter_message(response="utter_ask_for_name")
+            # dispatcher.utter_message(response="utter_ask_for_name")
 
         return []
 
@@ -72,13 +72,14 @@ class ActionDefaultFallback(Action):
         # undo last user interaction
         # return [ConversationPaused(), UserUtteranceReverted()]
         print('In ActionDefaultFallback!')
-        name = tracker.get_slot('name')
-        location = tracker.get_slot('location')
 
-        if name and location:
+        name = tracker.get_slot('name')
+        time = tracker.get_slot('time')
+        print(name, time)
+        if name and time:
             dispatcher.utter_message(
                 text="From out custom action ActionDefaultFallback - Thanks for tell me about your trip " + name + "."
-                "I'll think about going to " + location + " next time."
+                "I'll think about going to " + time + " next time."
             )
             # dispatcher.utter_message(buttons=buttons)
 
@@ -89,7 +90,7 @@ class ActionDefaultFallback(Action):
             #dispatcher.utter_message(text="Invalid data 2a.")
             dispatcher.utter_message(response="utter_ask_for_location")
 
-        elif location:
+        elif time:
             dispatcher.utter_message(text="Invalid data 2b.")
             dispatcher.utter_message(response="utter_ask_for_name")
 

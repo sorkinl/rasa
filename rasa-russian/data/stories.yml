@@ -18,12 +18,6 @@ stories:
     steps:
       - intent: ask_features
       - action: utter_features
-  - story: Confirm name
-    steps:
-      - action: utter_confirm_name
-      - intent: confirm_name
-      - action: action_confirm_name
-
   - story: user gives info
     steps:
       - intent: greet
@@ -40,21 +34,25 @@ stories:
       - intent: supply_meeting_info
         entities:
           - name
+      - action: action_handle_provided_info
       - action: utter_ask_for_time
       - intent: supply_meeting_info
         entities:
           - time
       - action: utter_test2
       - action: action_handle_provided_info
+      - action: utter_confirm_meetings
 
   - story: user gives only location
     steps:
       - intent: supply_meeting_info
         entities:
           - time
+      - action: action_handle_provided_info
       - action: utter_ask_for_name
       - intent: supply_meeting_info
         entities:
           - name
       - action: utter_test3
       - action: action_handle_provided_info
+      - action: utter_confirm_meetings
