@@ -101,20 +101,21 @@ nlu:
       - Когда [office hours] (faq)
       - Какая [occupancy] (faq) в [gym] (place)?
 
-  # - intent: inform_name
-  #   examples: |
-  #     - [Todd Bryant](PER)
-  #     - [John](PER)
-  #     - Меня зовут [Tohsaka](PER)
-  #     - Меня зовут [Сайбер](PER)
-  #     - Мое имя [Билли Ли](PER)
-  #     - [Рин Тосака](PER)
-  #     - [Мегумин](PER)
-  #     - Я [Арчер](PER)
-  #     - [Emiya Shirou](PER)
-  #     - [Leonid Sorkin](PER)
-  #     - [Raph Lee](PER)
-  #     - [АААА](PER)
+  - intent: inform_name
+    examples: |
+      - [Todd Bryant](name)
+      - [John](name)
+      - Меня зовут [Tohsaka](name)
+      - Меня зовут [Сайбер](name)
+      - Мое имя [Билли Ли](name)
+      - [Рин Тосака](name)
+      - [Мегумин](name)
+      - Я [Арчер](name)
+      - [Emiya Shirou](name)
+      - [Leonid Sorkin](name)
+      - [Raph Lee](name)
+      - [АААА](name)
+      - [Игорь](name)
 
   # - intent: confirm_name
   #   examples: |
@@ -126,13 +127,21 @@ nlu:
   #     - Обсудить сочинение
   #     - Я хочу поговорить о моей оценке
 
-  # - intent: inform_time
-  #   examples: |
-  #     - Будет [15:00](TIME) работать?
-  #     - [12:00](TIME)
-  #     - [12](TIME)
-  #     - В [8 вечера](TIME)
-  #     - В [11 утра](TIME)
+  - intent: inform_time
+    examples: |
+      - Будет [15:00](time) работать?
+      - [12:00](time)
+      - [12](time)
+      - В [8 вечера](time)
+      - В [11 утра](time)
+      - Я [Тодд](name).
+      - Я [Megan](name).
+      - Я [Roy](name).
+      -  Я [Борис](name).
+      - Я [Александр](name).
+      - Я [Максим](name).
+      - Я [Billy](name).
+      - Я [Alex](name).
 
   - intent: supply_meeting_info
     examples: |
@@ -144,14 +153,6 @@ nlu:
       - Меня зовут [Джордж](name). В [9 вечера](time).
       - Меня зовут [Рон](name). В [3](time).
       - Меня зовут [Harry](name). В [12 вечера](time).
-      - Я [Тодд](name).
-      - Я [Megan](name).
-      - Я [Roy](name).
-      - Я [Борис](name).
-      - Я [Александр](name).
-      - Я [Максим](name).
-      - Я [Billy](name).
-      - Я [Alex](name).
       - [Адуч](name), в [4 вечера](time).
       - [Махмуч](name), в [2 утра](time).
       - [Ронан](name), в [1 вечера](time).

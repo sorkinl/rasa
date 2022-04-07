@@ -32,7 +32,17 @@ rules:
       - intent: out_of_scope
       - action: action_default_fallback
 
-  # - rule: Greet
-  #   steps:
-  #     - intent: greet
-  #     - action: utter_greet
+  - rule: Follow path where location entity not included in dialogue if we do not have it.
+    condition:
+      - slot_was_set:
+          - name: null
+    steps:
+      - intent: inform_name
+      - action: action_handle_provided_info
+  - rule: Follow path where
+    condition:
+      - slot_was_set:
+          - time: null
+    steps:
+      - intent: inform_time
+      - action: action_handle_provided_info

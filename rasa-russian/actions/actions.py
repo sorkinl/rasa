@@ -11,6 +11,13 @@ from rasa_sdk.events import UserUttered
 from rasa.shared.nlu.training_data.message import Message
 
 
+def getCapitalizedElement(arr):
+    for x in arr:
+        if(x[0].isupper() and len(x[0]) != 1):
+            return x
+    return None
+
+
 class ActionHandleProvidedInfo(Action):
     def name(self) -> Text:
         return "action_handle_provided_info"
@@ -21,17 +28,8 @@ class ActionHandleProvidedInfo(Action):
         print('In ActionHandleProvidedInfo!')
         name = tracker.get_slot('name')
         time = tracker.get_slot('time')
-        print(time, name)
-        buttons = [
-            {
-                'title': "That's all",
-                'payload': '/goodbye'
-            },
-            {
-                'title': 'Add More Information',
-                'payload': '/supply_location_info'
-            },
-        ]
+
+        last_message = tracker.latest_message["text"]
 
         # if name and location are provided, show
         # the user further options
@@ -48,11 +46,23 @@ class ActionHandleProvidedInfo(Action):
         # again.
         elif name:
             dispatcher.utter_message(text="Invalid data 1a.")
-            # dispatcher.utter_message(response="utter_ask_for_time")
+            dispatcher.utter_message(response="utter_ask_for_time")
 
         elif time:
+            predicted_name = getCapitalizedElement(last_message.split())
             dispatcher.utter_message(text="Invalid data 1b.")
+            title = "Is your name: " + predicted_name + \
+                " ? If not type your name below." if predicted_name else "I didn't find any name type your name below or I'll call you None"
+            buttons = [
+                {
+                    'title': title,
+                    'payload': '/action_handle_provided_info'
+                },
+            ]
+            dispatcher.utter_message(
+                text="Click the button below", buttons=buttons)
             # dispatcher.utter_message(response="utter_ask_for_name")
+            SlotSet("name", predicted_name)
 
         return []
 
@@ -65,7 +75,7 @@ class ActionDefaultFallback(Action):
         # output a message saying that the conversation will now be
         # continued by a human.
 
-        #message = "Sorry, couldn't understand that! Let me connect you to a human..."
+        # message = "Sorry, couldn't understand that! Let me connect you to a human..."
         # dispatcher.utter_message(text=message)
 
         # pause tracker
@@ -87,7 +97,7 @@ class ActionDefaultFallback(Action):
         # ask the user for the information
         # again.
         elif name:
-            #dispatcher.utter_message(text="Invalid data 2a.")
+            # dispatcher.utter_message(text="Invalid data 2a.")
             dispatcher.utter_message(response="utter_ask_for_location")
 
         elif time:
@@ -159,7 +169,7 @@ class ActionDefaultFallback(Action):
 
 #         return [ActiveLoop(None)]
 
-#Message.set("intent", { "name": "inform_location"}, add_to_output=True)
+# Message.set("intent", { "name": "inform_location"}, add_to_output=True)
 
 
 class ActionConfirmName(Action):
