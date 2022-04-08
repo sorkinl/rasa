@@ -1,5 +1,4 @@
 from typing import Any, Text, Dict, List
-
 from rasa_sdk.forms import FormValidationAction, ActiveLoop
 from rasa_sdk import Action, Tracker
 #from rasa_sdk.events import UserUtteranceReverted
@@ -8,144 +7,85 @@ from rasa_sdk.events import SlotSet
 from rasa_sdk.events import ConversationResumed
 #from rasa_sdk.events import ConversationPaused
 from rasa_sdk.events import UserUttered
+from rasa_sdk.events import ActionExecuted
+from rasa_sdk.events import FollowupAction
 from rasa.shared.nlu.training_data.message import Message
-
+import json
 
 
 #from rasa_sdk import Action, Tracker
 #from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import UserUtteranceReverted, ConversationPaused
 
+#As of now, I can send any user sent via NLU uncertainty, set the slot and redirect them to a new story.
+#The first function sets the story slot at the beginning so we know they're on the trip story.
+#Second function we overwrite the DefaultAffirmation function.  Right now, I just set the slot to be New York.
+#Key bit is that follow_up_action we can then trigger next.  That function does nothing, but by starting it
+#we send the user to the start of the third story in stories.yml.
+#it would be nicer if we could prompt them again to enter just the location.  Probably easiest way to do that 
+#is to add a prompt at the start of this story that says "Enter a location like Paris or China" and follow that
+#with a slot called "location_we_take_anything" and mimic the above story with a near duplicate but using this second 
+#slot.
 
-class ActionHandleProvidedInfo(Action):
+
+#We will define a function at the start of each story whose only purpose to fill the story slot.  We need this 
+#so that later we can know within other functions what story they are on.
+class ActionSetStorySlotAsTrip(Action):
     def name(self):
-        return "action_handle_provided_info"
+        return "action_set_story_slot_as_trip"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        print('In ActionHandleProvidedInfo!')
-        name = tracker.get_slot('name')
-        location = tracker.get_slot('location')
+        print('In ActionSetStorySlotAsTrip!')
+        story = tracker.get_slot('story')
+        #That attempt above doesn't works, so can only get latest message to be the one before they entered fallback function
+        if story is None:
+          return [SlotSet("story", "trip")]
+        else:
+            #If we're here, we kicked here after not providing a location Rasa understood
+          return [FollowupAction("after_handle_no_trip_location")]
 
-        buttons = [
-            {
-                'title': "That's all",
-                'payload': '/goodbye'
-            },
-            {
-                'title': 'Add More Information',
-                'payload': '/supply_location_info'
-            },
-        ]
 
-        # if name and location are provided, show
-        # the user further options
-
-        if name and location:
-            dispatcher.utter_message(
-                text="From out custom action ActionHandleProvidedInfo - Thanks for tell me about your trip " + name + "."\
-                    "I'll think about going to " + location + " next time."
-            )
-            #dispatcher.utter_message(buttons=buttons)
-        
-        # if valid information isn't provided,
-        # ask the user for the information
-        # again.
-        elif name:
-            dispatcher.utter_message(text="Invalid data 1a.")
-            dispatcher.utter_message(response="utter_ask_for_location")
-
-        elif location:
-            dispatcher.utter_message(text="Invalid data 1b.")
-            dispatcher.utter_message(response="utter_ask_for_name")
-
-        return []
-
-class ActionDefaultFallback(Action):
-    def name(self) -> Text:
-        return "action_default_fallback"
-
-    def run(self, dispatcher, tracker, domain):
-        # output a message saying that the conversation will now be
-        # continued by a human.
-
-        #message = "Sorry, couldn't understand that! Let me connect you to a human..."
-        #dispatcher.utter_message(text=message)
-
-        # pause tracker
-        # undo last user interaction
-        #return [ConversationPaused(), UserUtteranceReverted()]
-        print('In ActionDefaultFallback!')
-        name = tracker.get_slot('name')
-        location = tracker.get_slot('location')
-
-        if name and location:
-            dispatcher.utter_message(
-                text="From out custom action ActionDefaultFallback - Thanks for tell me about your trip " + name + "."\
-                    "I'll think about going to " + location + " next time."
-            )
-            #dispatcher.utter_message(buttons=buttons)
-        
-        # if valid information isn't provided,
-        # ask the user for the information
-        # again.
-        elif name:
-            #dispatcher.utter_message(text="Invalid data 2a.")
-            dispatcher.utter_message(response="utter_ask_for_location")
-
-        elif location:
-            dispatcher.utter_message(text="Invalid data 2b.")
-            dispatcher.utter_message(response="utter_ask_for_name")
-
-        return []
-
+# We will catch NLU uncertainty here and override their function.  In general, we just want our best guess, a default value, or send them onto a story that 
+# doesn't need it.  Avoid having users get frustrated by having their input not recognized.
 class ActionDefaultAskAffirmation(Action):
     def name(self):
         return "action_default_ask_affirmation"
 
     async def run(self, dispatcher, tracker, domain):
         print('In ActionDefaultAskAffirmation!!')
-        name = tracker.get_slot('name')
+        story = tracker.get_slot('story')
         location = tracker.get_slot('location')
-#We'll probably need to put if statments here to get the intent, and then use that to set the slot
-#right now we only have one story, but this will grow.  Think about how to handle this.
+        lastOutput = tracker.latest_message['text']
 
-#FYI - rasa will fill this slot even if it isn't sure.  So here if enter something with a confidence of .6
-#rasa will fill the slot and conclude conversation below if DietClassifier can pull a value out.
-#So to improve this, maybe we should check confidence here and not run this confirm unless confidence high.  Otherwise, give the buttons.
-        if name and location:
-            dispatcher.utter_message(
-                text="From out custom action ActionDefaultAskAffirmation - Thanks for tell me about your trip " + name + "."\
-                    "I'll think about going to " + location + " next time."
-            )
-            #dispatcher.utter_message(buttons=buttons)
-            return[]
-        
-        # if valid information isn't provided,
-        # ask the user for the information
-        # again.
-        elif name:
-            dispatcher.utter_message(text="Invalid data 3a.")
-            dispatcher.utter_message(response="utter_ask_for_location")
+#We will start each story with an action that sets the story slot so we know which conversation the user is having.
+        if story == 'trip' and location is None:
+          print("message is " + tracker.latest_message['text'], "text2")
 
-        elif location:
-            #dispatcher.utter_message(text="Invalid data 3b. I'm going to call you Bob.")
-            #dispatcher.utter_message(response="utter_ask_for_name")
-            print("message is " + tracker.latest_message['text'], "text2")
-            #We could do some Python here to extract our best guess from the whole previous string for their name.
-            lastOutput = tracker.latest_message['text']
-            buttons = [
-                {
-                    'title': "I can call you:  " + lastOutput,
-                    'payload': '/gave_name'
-                }
-            ]
-        #should we do button or no buttons and just enter our last best guess regardless?
-        dispatcher.utter_message(text="Click the button below", buttons=buttons)
-        #dispatcher.utter_message("going to call you by your last message")
-        #return []
-        #lastOutput2 = tracker.latest_message['text']
-        #That attempt above doesn't works, so can only get latest message to be the one before they entered fallback function
-        return [SlotSet("name", lastOutput)]
+#We could put Python here and just guess best location, if nothing set a default, or we can bounce them to a new story where we don't reference the location.
 
+
+          #buttons = [
+          #  {
+          #  'title': "Sorry, I'm just a bot and I didn't recognize the place in your last sentence.  My best guess is the button below.  Either click it or give me just the place, like Paris or Africa  " + lastOutput,
+          #  'payload': '/inform_location'
+          #  }
+          #]
+
+          #dispatcher.utter_message(text="Click the button below", buttons=buttons)
+          #dispatcher.utter_message(text="I will just set the location in the function")
+
+          return [SlotSet("location", "New York"), FollowupAction("after_handle_no_trip_location")]
+
+        else:
+          print("We are in default ask affirmation action and have not handled this scenario")
+          return []
+
+class AfterHandleNoTripLocation(Action):
+    def name(self) -> Text:
+        return "after_handle_no_trip_location"
+
+    def run(self, dispatcher, tracker, domain):
+        #return [SlotSet("location", "New York")]
+        return []
