@@ -116,6 +116,14 @@ nlu:
       - [Raph Lee](name)
       - [АААА](name)
       - [Игорь](name)
+      - Я [Тодд](name).
+      - Я [Megan](name).
+      - Я [Roy](name).
+      - Я [Борис](name).
+      - Я [Александр](name).
+      - Я [Максим](name).
+      - Я [Billy](name).
+      - Я [Alex](name).
 
   # - intent: confirm_name
   #   examples: |
@@ -134,14 +142,6 @@ nlu:
       - [12](time)
       - В [8 вечера](time)
       - В [11 утра](time)
-      - Я [Тодд](name).
-      - Я [Megan](name).
-      - Я [Roy](name).
-      -  Я [Борис](name).
-      - Я [Александр](name).
-      - Я [Максим](name).
-      - Я [Billy](name).
-      - Я [Alex](name).
 
   - intent: supply_meeting_info
     examples: |

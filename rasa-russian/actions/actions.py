@@ -1,10 +1,11 @@
+import random
 from typing import Any, Text, Dict, List
 
 from rasa_sdk.forms import FormValidationAction, ActiveLoop
 from rasa_sdk import Action, Tracker
 from rasa_sdk.events import UserUtteranceReverted
 from rasa_sdk.executor import CollectingDispatcher
-from rasa_sdk.events import SlotSet
+from rasa_sdk.events import SlotSet, FollowupAction
 from rasa_sdk.events import ConversationResumed
 from rasa_sdk.events import ConversationPaused
 from rasa_sdk.events import UserUttered
@@ -12,10 +13,49 @@ from rasa.shared.nlu.training_data.message import Message
 
 
 def getCapitalizedElement(arr):
+    nameArr = []
     for x in arr:
-        if(x[0].isupper() and len(x[0]) != 1):
-            return x
-    return None
+        if(x[0].isupper() and len(x) > 1):
+            nameArr.append(x)
+    return nameArr
+
+
+def getTimeElement(arr):
+    timeArr = []
+    for x in arr:
+        if(x[0].isdigit() and len(x) > 1):
+            timeArr.append(x + "утра")
+            timeArr.append(x + "вечера")
+    return timeArr
+
+
+def listToString(arr):
+    # initialize an empty string
+    str1 = ""
+
+    # traverse in the string
+    for ele in str1:
+
+        str1 += ele + ", "
+
+    # return string
+    return str1.strip(', ')
+
+
+def makeButton(name):
+    return {"title": name,
+            "payload": name
+            }
+
+
+def randomTimes():
+    i = 0
+    arr = []
+    while i < 5:
+        arr.append(str(random.randint(1, 12)) + ":00 PM")
+        i += 1
+
+    return arr
 
 
 class ActionHandleProvidedInfo(Action):
@@ -34,77 +74,49 @@ class ActionHandleProvidedInfo(Action):
         # if name and location are provided, show
         # the user further options
 
-        if name and time:
-            dispatcher.utter_message(
-                text="From out custom action ActionHandleProvidedInfo - Thanks for tell me about your trip " + name + "."
-                "I'll think about going to " + time + " next time."
-            )
-            # dispatcher.utter_message(buttons=buttons)
+        # if name and time:
+        #     dispatcher.utter_message(
+        #         text="From out custom action ActionHandleProvidedInfo - Thanks for tell me about your trip " + name + "."
+        #         "I'll think about going to " + time + " next time."
+        #     )
+        # dispatcher.utter_message(buttons=buttons)
 
         # if valid information isn't provided,
         # ask the user for the information
         # again.
-        elif name:
+        if name:
+            predicted_times = getTimeElement(last_message.split())
             dispatcher.utter_message(text="Invalid data 1a.")
-            dispatcher.utter_message(response="utter_ask_for_time")
+            print(predicted_times)
+            print(listToString(predicted_times))
+            title = "Is your name one of these: " + listToString(predicted_times) + \
+                " ? If not type your name below." if len(
+                    predicted_times) != 0 else "I didn't find any time can you choose one of the following when prof is available?"
+            print(title)
+            times = predicted_times if len(
+                predicted_times) != 0 else randomTimes()
+            buttons = map(makeButton, times)
+            dispatcher.utter_message(
+                text=title, buttons=buttons)
 
-        elif time:
-            predicted_name = getCapitalizedElement(last_message.split())
+        else:
+            predicted_names = getCapitalizedElement(last_message.split())
             dispatcher.utter_message(text="Invalid data 1b.")
-            title = "Is your name: " + predicted_name + \
-                " ? If not type your name below." if predicted_name else "I didn't find any name type your name below or I'll call you None"
-            buttons = [
-                {
-                    'title': title,
-                    'payload': '/action_handle_provided_info'
-                },
-            ]
+            print(predicted_names)
+            print(listToString(predicted_names))
+            title = "Is your name one of these: " + listToString(predicted_names) + \
+                " ? If not type your name below." if len(
+                    predicted_names) != 0 else "I didn't find any name type your name below or I'll call you Leo"
+            print(title)
+            buttons = map(makeButton, predicted_names)
             dispatcher.utter_message(
-                text="Click the button below", buttons=buttons)
-            # dispatcher.utter_message(response="utter_ask_for_name")
-            SlotSet("name", predicted_name)
+                text=title, buttons=buttons)
+            # return [FollowupAction("action_confirm_name")]
+            # Trigger Action_Confirm_Name with the value from buttons or text
 
         return []
 
 
-class ActionDefaultFallback(Action):
-    def name(self) -> Text:
-        return "action_default_fallback"
-
-    def run(self, dispatcher, tracker, domain):
-        # output a message saying that the conversation will now be
-        # continued by a human.
-
-        # message = "Sorry, couldn't understand that! Let me connect you to a human..."
-        # dispatcher.utter_message(text=message)
-
-        # pause tracker
-        # undo last user interaction
-        # return [ConversationPaused(), UserUtteranceReverted()]
-        print('In ActionDefaultFallback!')
-
-        name = tracker.get_slot('name')
-        time = tracker.get_slot('time')
-        print(name, time)
-        if name and time:
-            dispatcher.utter_message(
-                text="From out custom action ActionDefaultFallback - Thanks for tell me about your trip " + name + "."
-                "I'll think about going to " + time + " next time."
-            )
-            # dispatcher.utter_message(buttons=buttons)
-
-        # if valid information isn't provided,
-        # ask the user for the information
-        # again.
-        elif name:
-            # dispatcher.utter_message(text="Invalid data 2a.")
-            dispatcher.utter_message(response="utter_ask_for_location")
-
-        elif time:
-            dispatcher.utter_message(text="Invalid data 2b.")
-            dispatcher.utter_message(response="utter_ask_for_name")
-
-        return []
 # class ActionDefaultAskAffirmation(Action):
 #     def name(self):
 #         return "action_default_ask_affirmation"
@@ -180,8 +192,7 @@ class ActionConfirmName(Action):
         print("Confirm name")
         message = tracker.latest_message["text"]
 
-        dispatcher.utter_message(response="appointment_form")
-        return [ActiveLoop("appointment_form"), SlotSet("name", message)]
+        return [SlotSet("name", message)]
 
 
 # a mapping between intents and user friendly wordings

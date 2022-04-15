@@ -41,12 +41,11 @@ stories:
       - slot_was_set:
           - name: not null
       - action: action_handle_provided_info
-      - intent: infrom_time
+      - intent: inform_time
         entities:
           - time
       - slot_was_set:
           - time: not null
-      - action: utter_test2
       - action: action_handle_provided_info
       - action: utter_confirm_meetings
 
@@ -60,11 +59,7 @@ stories:
       - slot_was_set:
           - time: not null
       - action: action_handle_provided_info
-      - intent: infrom_name
-        entities:
-          - name
-      - slot_was_set:
-          - name: not null
-      - action: utter_test3
+      - intent: inform_name
+      - action: action_confirm_name
       - action: action_handle_provided_info
       - action: utter_confirm_meetings
