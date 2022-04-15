@@ -27,7 +27,7 @@ intents:
     use_entities: true
 - inform_reason_trip:
     use_entities: true
-- inform_enjoy:
+- inform_activities_trip:
     use_entities: true
 - inform_time:
     use_entities: true
@@ -39,26 +39,41 @@ intents:
     use_entities: true
 - confirm_location:
     use_entities: true
-- supply_trip_info:
+- respond_trip:
     use_entities: true
 - give_name:
     use_entities: true
 - gave_name:
     use_entities: true
+- greet_trip:
+    use_entities: true
+- gave_location:
+    use_entities: true
+- gave_no_location:
+    use_entities: true
 entities:
-- name
 - location
 slots:
-  name:
-    type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
-    influence_conversation: true
   location:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
     auto_fill: true
     influence_conversation: true
+  reason_trip:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  activities_trip:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  story:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
 responses:
   utter_please_rephrase:
   - text: I'm sorry, I didn't quite understand that. Could you rephrase it differently?
@@ -81,8 +96,8 @@ responses:
   - text: Professor's office hours are from 12:00 PM to 1:00 PM
   utter_welcome:
   - text: You are welcome
-  utter_ask_enjoy:
-  - text: Did you have fun?  What did you do?  How was the weather?  Do anything outdoors? 
+  utter_ask_activities_trip:
+  - text: What did you do?  How was the weather?  Do anything outdoors? 
   utter_ask_name:
   - text: What's your full name?
   utter_ask_location:
@@ -91,16 +106,20 @@ responses:
   - text: Wow, I've never been to {location}.  What are some reasons for me to go?  I like to do things outdoors.  I also believe it's good to have a cultural experience when I travel.
   utter_ask_time:
   - text: What time do you want to meet?
-  utter_confirm_trip:
-  - text: Thanks for telling me about your {location} trip, {name}. I have to go but it was good talking to you.  See you.
+  utter_ask_recommend_trip:
+  - text: Did you have a good experience?  Would you recommend that I visit there?
+  utter_confirm_trip_positive:
+  - text: Thanks for telling me about your {location} trip.  Glad you had a good time. I have to go but it was good talking to you.  See you.
+  utter_confirm_trip_negative:
+  - text: Thanks for telling me about your {location} trip.  Sorry that it was disappointing. I have to go but it was good talking to you.  See you.
+  utter_confirm_trip_no_location:
+  - text: Thanks for telling me about your trip. I have to go but it was good talking to you.  See you.
   utter_default:
   - text: Sorry I didn't get that. Can you rephrase?
   utter_initial_welcome:
   - text: Hi
   utter_ask_how_are_you:
   - text: How are you?
-  utter_ask_trip:
-  - text: I heard you went on trip.  Is that right?
   utter_confirm_location:
   - text: Sorry, I'm just a bot, can you just enter your location?
   utter_test1:
@@ -109,8 +128,8 @@ responses:
   - text: test2
   utter_test3:
   - text: test3
-  utter_ask_trip_info:
-  - text: Hello! I heard you went on a trip.  Could you tell me your name and where you went?2
+  utter_ask_trip:
+  - text: Hello! I heard you went on a trip.  Where did you go?
   utter_acknowledge_no_info:
   - text: Sorry, you'll have to provide your information to proceed.
   utter_goodbye:
@@ -134,15 +153,14 @@ actions:
   - utter_test3
   - action_handle_provided_info
   - action_default_fallback
-  - action_default_ask_affirmation 
-#forms:
-#  trip_form:
-#    required_slots:
-#      location:
-#      - type: from_entity
-#        entity: location
-#      enjoy:
-#      - type: from_text
-#      reason_trip:
-#      - type: from_text
+  - action_default_ask_affirmation
+  - action_set_story_slot_as_trip
+  - after_handle_no_trip_location
+forms:
+  trip_form:
+    required_slots:
+      reason_trip:
+      - type: from_text
+      activities_trip:
+      - type: from_text
 #e2e_actions: []

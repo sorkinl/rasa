@@ -84,7 +84,16 @@ nlu:
       - Unhappy
       - Not great
       - Not very good
+      - Sucked
+      - It was awful
+      - not good
+      - not great
       - Very bad
+      - miserable
+      - lowsy
+      - it sucked
+      - was terrible
+      - is really bad
   - intent: bot_challenge
     examples: |
       - are you a bot?
@@ -139,6 +148,17 @@ nlu:
       - We flew to [Mexico](location) and went surfing.
       - My family and I went hiking at [Yosemite National Park](location)
       - We went to [Washington DC](location) to visit the museums.
+      - [Paris](location)
+      - [Nevada](location)
+      - [Pittburgh](location)
+      - [the Alps](location)
+      - [Venice](location)
+      - [Hong Kong](location)
+      - [Thailand](location)
+      - [Sydney](location)
+      - [the beach](location)
+      - [the mountains](location)
+      - [Rio](location)
 
   - intent: inform_reason_trip
     examples: |
@@ -167,55 +187,31 @@ nlu:
       - How high is too high?
       - What's the meaning of life?
 
-  - intent: supply_trip_info
+  - intent: respond_trip
     examples: |
-      - I am [Todd](name) and I went to [Pittsburgh](location).
+      - I went to [Pittsburgh](location).
       - I went to [Paris](location) for vacation
       - I went to [Berlin](location) for vacation
       - I went to [Germany](location) last week
-      - My name is [Sam](name) and I went to [Pittsburgh](location) with my mother
-      - My name is [Samantha](name) and I traveled to Pittsburgh](location)
-      - My name is [Bill](name) and I went to [Pittsburgh](location) on vacation
-      - My name is [William](name) and I went to [Lake Erie](location) on vacation
-      - My name is [Luis](name) and I went to [the Applachian Mountains](location) on vacation
-      - My name is [Mariana](name) and I went to [California](location) with friends
-      - My name is [Anna](name) and I went to [Yosemite](location) on vacation
-      - My name is [Brandon](name) and I went to see [the Great Wall of China](location) on vacation
-      - My name is [Zolboo](name) and I went to [Hawaii](location) on vacation
-      - My name is [Keson](name) and I went to [Tennessee](location) last month
-      - My name is [Carter](name) and I went to [Austin](location) to go hiking
-      - My name is [Ashton](name) and I went to [Beijing](location) to visit friends
-      - I am  [Alvin](name). I went to [Nashville, Tennessee](location) to see the opera house
-      - I am  [Amy](name). I went to [Austin](location) to see the university
-      - I am  [Barbara](name). I went to [Beijing](location) to the the capital
-      - I am  [David](name). I went to [China](location) because we wanted to try the food
-      - I am  [Diana](name). I went to [Boston](location) to visit my family
-      - [John](name).
-      - [Sam](name). 
-      - [Amy](name). 
-      - [Alexia](name). 
-      - [Juan](name). 
-      - [Lee](name). 
-      - [Xin](name). 
-      - [Ma](name) 
-      - [Ralph](name) 
-      - [Brenda](name)
-      - [Mariana](name)
-      - My name is [John](name). 
-      - name: [David](name)  
-      - [Susan](name) 
-      - Sure. It's [Jim](name).
-      - Sure. It's [John](name).
-      - Sure. It's [Lee](name). 
-      - Sure. It's [Frank](name). 
-      - Sure. It's [Fred](name). 
-      - Sure. It's [Zha](name).
-      - My name is [Pat](name). 
-      - My name is [Brenda](name). 
-      - My name is [Tom](name). 
-      - My name is [Leo](name). 
-      - My name is [Jorge](name). 
-      - My name is [Akiko](name).
+      - I went to [Las Vegas](location) with my mother
+      - I traveled to [Los Angeles](location)
+      - I went to the [Grand Canyon](location) on vacation
+      - I went to [Lake Erie](location) on vacation
+      - I went to [the Applachian Mountains](location) on vacation
+      - I went to [California](location) with friends
+      - I went to [Yosemite](location) on vacation
+      - I went to see [the Great Wall of China](location) on vacation
+      - I went to [Hawaii](location) on vacation
+      - I went to [Tennessee](location) last month
+      - I went hiking in the [Rocky Mountains](location)
+      - I went to [Austin](location) to go hiking
+      - We went to [Beijing](location) to visit friends
+      - We went to [Nashville, Tennessee](location) to see the opera house
+      - We went to [Austin](location) to see the university
+      - We took a trip to [Beijing](location) to the the capital
+      - We took a trip to [China](location) because we wanted to try the food
+      - We took a trip to [Boston](location) to visit my family
+
 
 #  - intent: give_name
 #    examples: |
@@ -223,3 +219,10 @@ nlu:
 #  We never want this intent to be triggered by user text, only via an action.
   - intent: gave_name
     examples: |
+
+#  Same, we never want this intent to be triggered by user text, in this case we just want it in the tracker so we can know which
+#conversation the user started
+  - intent: greet_trip
+    examples: |
+      - qwerty
+      - qwerty2

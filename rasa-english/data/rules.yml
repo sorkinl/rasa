@@ -32,6 +32,21 @@ rules:
       - action: action_default_ask_affirmation
       - intent: out_of_scope
       - action: action_default_fallback
+#  - rule: Follow path where location entity included in dialogue if we have it
+#    condition:
+#    - slot_was_set:
+#      - location: not null
+#    steps:  #Note you have to capture their intent after entering location, then you can add your other steps
+#    - intent: inform_location
+#    - action: utter_confirm_trip
+  - rule: Follow path where location entity not included in dialogue if we do not have it #For some reason, I can only check for null within rules, not story so I have to put it here.  I can keep the path with location slot is not null in story.
+    condition:
+    - slot_was_set:
+      - location: null
+    steps:  #Note you have to capture their intent after try to enter location, then you can add your other steps
+    - intent: inform_location
+    - action: action_default_ask_affirmation
+
 #  - rule: welcome user
 #    conversation_start: true  # this rule only applies at the beginning of a conversation
 #    steps:

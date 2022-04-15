@@ -1,78 +1,89 @@
 version: "2.0"
 stories:
-- story: user gives info
+- story: trip_story_positive
   steps:
-    - intent: greet
-    - action: utter_ask_trip_info
-    - intent: supply_trip_info
-      entities:
-        - name
+  - intent: greet_trip
+#  - intent: greet
+  - action: action_set_story_slot_as_trip
+  - action: utter_ask_trip
+  - intent: respond_trip
+    entities:
         - location
-    - action: action_handle_provided_info
-    - action: utter_test1
-    - action: utter_confirm_trip
+  - slot_was_set:
+    - location: not null
+  - action: trip_form
+  - active_loop: trip_form
+  - active_loop: null
+#  - intent: inform_location
+  - action: utter_ask_recommend_trip
+  - or:
+      - intent: affirm
+      - intent: mood_great
+#maybe add an OR statement here with postive mood_great etc
+  - action: utter_confirm_trip_positive
+#  - intent: inform_location
+#  - action: utter_confirm_trip
 
-- story: user gives only name
+- story: trip_story_negative
   steps:
-    - intent: supply_trip_info
-      entities:
-        - name
-    - action: utter_ask_for_trip_location
-    - intent: supply_trip_info
-      entities:
+  - intent: greet_trip
+#  - intent: greet
+  - action: action_set_story_slot_as_trip
+  - action: utter_ask_trip
+  - intent: respond_trip
+    entities:
         - location
-    - action: utter_test2
-    - action: action_handle_provided_info
-    - action: utter_confirm_trip
+  - slot_was_set:
+    - location: not null
+  - action: trip_form
+  - active_loop: trip_form
+  - active_loop: null
+#  - intent: inform_location
+  - action: utter_ask_recommend_trip
+  - or:
+      - intent: deny
+      - intent: mood_unhappy
+  - action: utter_confirm_trip_negative
 
-- story: user gives only location
+- story: trip_story_handled_no_location_positve
   steps:
-    - intent: supply_trip_info
-      entities:
-        - location
-    - action: utter_ask_for_name
-    - intent: supply_trip_info
-      entities:
-        - name
-    - action: utter_test3
-    - action: action_handle_provided_info
-#This intent allows us to finish.  Not totally sure why, but if enter name as total nonsense above it just stops
-#First try to add entities: name below the intent like above.  If not, add a different utter_confirm_trip_without_name
-#Because as it, it says "Thanks for tell me about your trip None" because slot isn't filled.
-#This trick may be useful in the future.  Without the entity below, it just moves on even if slot isn't filled?
-    - intent: gave_name
-#It works better with this below commented out.  It just takes Xccv as a name and confirms.  Not sure why because seems like with it
-# the story is stuck above waiting for an entity name with some confidence and never makes it to utter_test3.  Is the slot already filled?
-#In the demo code we use, they always end story with the action_handle_provided_info.  Maybe this is a limitation.
-#
-#OK, I think I have it. Once you get to entity name above, if you enter nonsense, not sure what to do.  So it's going into your NLU fallback rule
-#which then sends it to affirmation.  There it gives the button and also set the intent to gave_name.  That kicks it back out here in the story 
-#(skipping the utter_test3 and the handle provided info action). I'm hoping since we set the slot in the function and don't ask for 
-#entity below (commented out) it will take it and not check confidence.  It seems to accept pretty much everything as is.
-#      entities:
-#        - name
-    - action: utter_confirm_trip
+  - action: after_handle_no_trip_location
+  - action: trip_form
+  - active_loop: trip_form
+  - active_loop: null
+#  - intent: inform_location
+  - action: utter_ask_recommend_trip
+  - or:
+      - intent: affirm
+      - intent: mood_great
+#maybe add an OR statement here with postive mood_great etc
+  - action: utter_confirm_trip_positive
 
-- story: user wants to give info
-  steps:
-    - intent: supply_trip_info
-    - action: utter_ask_trip_info
-    - intent: supply_trip_info
-      entities:
-        - name
-        - location
-    - action: action_handle_provided_info
-    - action: utter_confirm_trip
+#- story: trip_story_no_location
+#  steps:
+#  - intent: greet_trip
+#  - intent: greet
+#  - action: utter_ask_trip
+#  - intent: respond_trip
+#    entities:
+#        - location
+#  - intent: gave_no_location
+#  - action: utter_goodbye
 
-- story: user doesn't want to provide information
-  steps:
-    - action: utter_ask_trip_info
-    - intent: deny
-    - action: utter_acknowledge_no_info
-#  - story: Confirm location
-#    steps:
-#      - intent: confirm_location
-#      - action: utter_confirm_location
-#      - action: utter_test3
-#      - intent: confirm_location
-#      - action: action_confirm_location
+
+#- story: trip_story_with_location
+#  steps:
+#  - checkpoint: location_checkpoint
+#    slot_was_set:
+#    - location: not null
+#  - intent: inform_location
+#  - action: utter_confirm_trip
+
+#- story: trip_story_without_location
+#  steps:
+#  - checkpoint: location_checkpoint
+#    slot_was_set:
+#    - location: null
+#  - intent: inform_location
+#  - action: utter_goodbye
+
