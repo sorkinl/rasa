@@ -1,6 +1,6 @@
 version: "2.0"
 nlu:
-  - lookup: PE
+  - lookup: PER
     examples: |
       - александр
       - николай

@@ -7,64 +7,24 @@ session_config:
 intents:
   - supply_meeting_info:
       use_entities: true
-  - ask_features:
-      use_entities: true
   - greet:
       use_entities: true
   - goodbye:
       use_entities: true
-  - request_appointment:
-      use_entities: true
-  - affirm:
-      use_entities: true
-  - deny:
-      use_entities: true
-  - mood_great:
-      use_entities: true
-  - mood_unhappy:
-      use_entities: true
-  - bot_challenge:
-      use_entities: true
-  - faq:
-      use_entities: true
   - gratitude:
-      use_entities: true
-  - student_name_entry:
-      use_entities: true
-  - appointment_reason_entry:
       use_entities: true
   - inform_name:
       use_entities: true
   - inform_time:
       use_entities: true
-  - inform_reason:
-      use_entities: true
-  - out_of_scope:
-      use_entities: true
   - nlu_fallback:
       use_entities: true
 entities:
-  - faq
-  - place
-  - reason
-  - PERSON
-  - TIME
   - PER
-  - name
   - time
 slots:
-  name:
+  PER:
     type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
-    influence_conversation: false
-  reason:
-    type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
-    influence_conversation: false
-  requested_slot:
-    type: rasa.shared.core.slots.UnfeaturizedSlot
     initial_value: null
     auto_fill: true
     influence_conversation: false
@@ -84,68 +44,21 @@ responses:
     - text: Простите, я не совсем понял. Не могли бы вы перефразировать?
   utter_out_of_scope:
     - text: Извините, я не могу обработать этот запрос.
-  utter_features:
-    - text: Особенности бла-бла-бла
   utter_greet:
     - text: Привет!
-  utter_cheer_up:
-    - image: https://i.imgur.com/nGF1K8f.jpg
-      text: Может, от этого тебе станет легче
-  utter_did_that_help:
-    - text: Помогло?
   utter_happy:
     - text: Отлично!
   utter_goodbye:
     - text: Пока-пока!
-  utter_iamabot:
-    - text: Я робот.
   utter_help:
     - text: Чем вам помочь?
-  utter_office_hours:
-    - text: Режим работы профессора с 12:00 до 13:00.
   utter_welcome:
     - text: Не за что!
-  utter_ask_name:
-    - text: Как вас зовут?
-  utter_ask_reason:
-    - text: По какой причине вы хотите встретиться?
-  utter_ask_time:
-    - text: Во сколько?
-  utter_confirm_appointment:
-    - text: Все готово! Запись на имя {name} по причине "{reason}" в {time} забронирована.
   utter_default:
     - text: Извините, я не понял. Вы можете перефразировать?
-  utter_confirm_name:
-    - text: Я не могу найти имя. Можете перефразировать?
-  utter_story1:
-    - text: Story 1
-  utter_story2:
-    - text: Story 2
-  utter_test1:
-    - text: test 1
-  utter_test2:
-    - text: test 2
-  utter_test3:
-    - text: test 3
   utter_confirm_meetings:
-    - text: Name {name} time {time}
+    - text: Ваша встреча на имя {PER} произойдет в {time}.
 actions:
-  - utter_unhappy
-  - action_occupancy
-  - utter_slots_values
-  - restaurant_form
-  - action_default_ask_affirmation
   - action_confirm_name
   - action_handle_provided_info
-# forms:
-#   appointment_form:
-#     required_slots:
-#       reason:
-#         - type: from_text
-#       name:
-#         - entity: PER
-#           type: from_entity
-#       time:
-#         - entity: TIME
-#           type: from_entity
 e2e_actions: []

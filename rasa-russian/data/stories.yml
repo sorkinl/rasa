@@ -1,33 +1,15 @@
 version: "2.0"
 stories:
-  - story: sad path 1
-    steps:
-      - intent: mood_unhappy
-      - action: utter_cheer_up
-      - action: utter_did_that_help
-      - intent: affirm
-      - action: utter_happy
-  - story: sad path 2
-    steps:
-      - intent: mood_unhappy
-      - action: utter_cheer_up
-      - action: utter_did_that_help
-      - intent: deny
-      - action: utter_goodbye
-  - story: Ask Features
-    steps:
-      - intent: ask_features
-      - action: utter_features
   - story: user gives info
     steps:
       - intent: greet
       - action: utter_ask_meeting_info
       - intent: supply_meeting_info
         entities:
-          - name
+          - PER
           - time
       - slot_was_set:
-          - name: not null
+          - PER: not null
           - time: not null
       - action: action_handle_provided_info
       - action: utter_confirm_meetings
@@ -37,9 +19,9 @@ stories:
       - action: utter_ask_meeting_info
       - intent: inform_name
         entities:
-          - name
+          - PER
       - slot_was_set:
-          - name: not null
+          - PER: not null
       - action: action_handle_provided_info
       - intent: inform_time
         entities:
@@ -60,6 +42,10 @@ stories:
           - time: not null
       - action: action_handle_provided_info
       - intent: inform_name
+        entities:
+          - PER
+      - slot_was_set:
+          - PER: not null
       - action: action_confirm_name
       - action: action_handle_provided_info
       - action: utter_confirm_meetings
