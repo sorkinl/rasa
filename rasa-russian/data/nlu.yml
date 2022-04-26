@@ -22,6 +22,20 @@ nlu:
       - До скорого
       - Увидимся
       - Пока-пока
+
+  - intent: affirm
+    examples: |
+      - Да
+      - Подтверждаю
+      - Ага
+      - Да
+
+  - intent: deny
+    examples: |
+      - Нет
+      - Ни за что
+      - Никогда
+      - Нет
   - intent: inform_name
     examples: |
       - [Todd Bryant](PER)
@@ -72,3 +86,16 @@ nlu:
       - [Steven](PER), в [8 утра](time).
       - [Peter](PER), в [9 вечера](time).
       - [Рокета](PER), в [3](time).
+
+  - intent: dr_appointment
+    examples: |
+      - Хочу поговорить с доктором.
+      - Доктор
+  - intent: inform_symptoms
+    examples: |
+      - Болит [горло](throat)
+      - [Насморк](nose)
+      - Болит [голова](headache)
+      - У меня болит [голова](headache),[горло](throat) и [насморк](nose)
+      - У меня болят [голова](headache) и [горло](throat)
+      - У меня [насморк](nose) и [головная](headache) боль

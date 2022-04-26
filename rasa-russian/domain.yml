@@ -19,9 +19,22 @@ intents:
       use_entities: true
   - nlu_fallback:
       use_entities: true
+  - dr_appointment:
+      use_entities: true
+  - inform_symptoms:
+      use_entities: true
+  - deny:
+      use_entities: true
+  - affirm:
+      use_entities: true
 entities:
   - PER
   - time
+  - nose
+  - throat
+  - headache
+  - fever
+  - sick
 slots:
   PER:
     type: rasa.shared.core.slots.TextSlot
@@ -33,7 +46,48 @@ slots:
     initial_value: null
     auto_fill: true
     influence_conversation: false
+  nose:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  throat:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  headache:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  fever:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  sick:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
 responses:
+  utter_ask_for_symptoms:
+    - text: Какие у вас симптомы?
+  utter_ask_fever:
+    - text: У вас есть температура?
+      buttons:
+        - title: "Да"
+          payload: '/affirm{"fever": "True"}'
+        - title: "Нет"
+          payload: '/deny{"fever": "False"}'
+  utter_ask_sick_often:
+    - text: Вы часто болеете?
+      buttons:
+        - title: "Да"
+          payload: '/affirm{"sick": "True"}'
+        - title: "Нет"
+          payload: '/deny{"sick": "False"}'
   utter_ask_meeting_info:
     - text: Как вас зовут и во сколько вы хотите встретится?
   utter_ask_for_time:
@@ -61,4 +115,5 @@ responses:
 actions:
   - action_confirm_name
   - action_handle_provided_info
+  - action_give_diagnosis
 e2e_actions: []

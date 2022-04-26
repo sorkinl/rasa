@@ -119,3 +119,18 @@ class ActionConfirmName(Action):
         message = tracker.latest_message["text"]
 
         return [SlotSet("PER", message)]
+
+
+class ActionGiveDiagnosis(Action):
+    def name(self):
+        return "action_give_diagnosis"
+
+    async def run(self, dispatcher, tracker, domain):
+        print("Give diagnosis")
+        fever = tracker.get_slot("fever")
+        sick = tracker.get_slot("sick")
+        headache = tracker.get_slot("headache")
+        throat = tracker.get_slot("throat")
+        nose = tracker.get_slot("nose")
+        dispatcher.utter_message(text="hi")
+        return []
