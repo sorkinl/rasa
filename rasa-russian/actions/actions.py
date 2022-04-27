@@ -132,5 +132,11 @@ class ActionGiveDiagnosis(Action):
         headache = tracker.get_slot("headache")
         throat = tracker.get_slot("throat")
         nose = tracker.get_slot("nose")
-        dispatcher.utter_message(text="hi")
+        if(fever == "True"):
+            dispatcher.utter_message(text="У вас грипп")
+        else:
+            if(sick == "True"):
+                dispatcher.utter_message(text="У вас аллергия")
+            else:
+                dispatcher.utter_message(text="У вас простуда")
         return []

@@ -35,6 +35,7 @@ entities:
   - headache
   - fever
   - sick
+
 slots:
   PER:
     type: rasa.shared.core.slots.TextSlot
@@ -43,6 +44,16 @@ slots:
     influence_conversation: false
   time:
     type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  symptoms:
+    type: text
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  medication:
+    type: text
     initial_value: null
     auto_fill: true
     influence_conversation: false
@@ -67,13 +78,15 @@ slots:
     auto_fill: true
     influence_conversation: false
   sick:
-    type: rasa.shared.core.slots.TextSlot
+    type: text
     initial_value: null
     auto_fill: true
     influence_conversation: false
 responses:
-  utter_ask_for_symptoms:
+  utter_ask_dr_form_symptoms:
     - text: Какие у вас симптомы?
+  utter_ask_dr_form_medication:
+    - text: Какие лекарства вы принимаете?
   utter_ask_fever:
     - text: У вас есть температура?
       buttons:
@@ -81,7 +94,7 @@ responses:
           payload: '/affirm{"fever": "True"}'
         - title: "Нет"
           payload: '/deny{"fever": "False"}'
-  utter_ask_sick_often:
+  utter_ask_dr_form_sick:
     - text: Вы часто болеете?
       buttons:
         - title: "Да"
@@ -116,4 +129,14 @@ actions:
   - action_confirm_name
   - action_handle_provided_info
   - action_give_diagnosis
+
+forms:
+  dr_form:
+    required_slots:
+      symptoms:
+        - type: from_text
+      medication:
+        - type: from_text
+      sick:
+        - type: from_text
 e2e_actions: []

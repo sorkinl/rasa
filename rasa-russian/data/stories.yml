@@ -53,43 +53,17 @@ stories:
   - story: Doctors appointment1
     steps:
       - intent: dr_appointment
-      - action: utter_ask_for_symptoms
-      - intent: inform_symptoms
+      - action: dr_form
+      - active_loop: dr_form
       - action: utter_ask_fever
-      - intent: affirm
-      - action: utter_ask_sick_often
       - intent: affirm
       - action: action_give_diagnosis
 
   - story: Doctors appointment1
     steps:
       - intent: dr_appointment
-      - action: utter_ask_for_symptoms
-      - intent: inform_symptoms
+      - action: dr_form
+      - active_loop: dr_form
       - action: utter_ask_fever
-      - intent: affirm
-      - action: utter_ask_sick_often
-      - intent: affirm
-      - action: action_give_diagnosis
-
-  - story: Doctors appointment1
-    steps:
-      - intent: dr_appointment
-      - action: utter_ask_for_symptoms
-      - intent: inform_symptoms
-      - action: utter_ask_fever
-      - intent: deny
-      - action: utter_ask_sick_often
-      - intent: affirm
-      - action: action_give_diagnosis
-
-  - story: Doctors appointment1
-    steps:
-      - intent: dr_appointment
-      - action: utter_ask_for_symptoms
-      - intent: inform_symptoms
-      - action: utter_ask_fever
-      - intent: deny
-      - action: utter_ask_sick_often
       - intent: deny
       - action: action_give_diagnosis
