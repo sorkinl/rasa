@@ -83,24 +83,20 @@ slots:
     auto_fill: true
     influence_conversation: false
 responses:
+  utter_allergies:
+    - text: You have allergies!
+  utter_flu:
+    - text: You have flu!
+  utter_cold:
+    - text: You have a cold!
   utter_ask_dr_form_symptoms:
     - text: Какие у вас симптомы?
   utter_ask_dr_form_medication:
     - text: Какие лекарства вы принимаете?
   utter_ask_fever:
     - text: У вас есть температура?
-      buttons:
-        - title: "Да"
-          payload: '/affirm{"fever": "True"}'
-        - title: "Нет"
-          payload: '/deny{"fever": "False"}'
-  utter_ask_dr_form_sick:
+  utter_ask_sick:
     - text: Вы часто болеете?
-      buttons:
-        - title: "Да"
-          payload: '/affirm{"sick": "True"}'
-        - title: "Нет"
-          payload: '/deny{"sick": "False"}'
   utter_ask_meeting_info:
     - text: Как вас зовут и во сколько вы хотите встретится?
   utter_ask_for_time:
@@ -136,7 +132,5 @@ forms:
       symptoms:
         - type: from_text
       medication:
-        - type: from_text
-      sick:
         - type: from_text
 e2e_actions: []

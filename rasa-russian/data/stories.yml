@@ -1,55 +1,5 @@
 version: "2.0"
 stories:
-  - story: user gives info
-    steps:
-      - intent: greet
-      - action: utter_ask_meeting_info
-      - intent: supply_meeting_info
-        entities:
-          - PER
-          - time
-      - slot_was_set:
-          - PER: not null
-          - time: not null
-      - action: action_handle_provided_info
-      - action: utter_confirm_meetings
-  - story: user gives only name
-    steps:
-      - intent: greet
-      - action: utter_ask_meeting_info
-      - intent: inform_name
-        entities:
-          - PER
-      - slot_was_set:
-          - PER: not null
-      - action: action_handle_provided_info
-      - intent: inform_time
-        entities:
-          - time
-      - slot_was_set:
-          - time: not null
-      - action: action_handle_provided_info
-      - action: utter_confirm_meetings
-
-  - story: user gives only location
-    steps:
-      - intent: greet
-      - action: utter_ask_meeting_info
-      - intent: inform_time
-        entities:
-          - time
-      - slot_was_set:
-          - time: not null
-      - action: action_handle_provided_info
-      - intent: inform_name
-        entities:
-          - PER
-      - slot_was_set:
-          - PER: not null
-      - action: action_confirm_name
-      - action: action_handle_provided_info
-      - action: utter_confirm_meetings
-
   - story: Doctors appointment1
     steps:
       - intent: dr_appointment
@@ -57,13 +7,24 @@ stories:
       - active_loop: dr_form
       - action: utter_ask_fever
       - intent: affirm
-      - action: action_give_diagnosis
-
-  - story: Doctors appointment1
+      - action: utter_flu
+  - story: Doctors appointment2
     steps:
       - intent: dr_appointment
       - action: dr_form
       - active_loop: dr_form
       - action: utter_ask_fever
       - intent: deny
-      - action: action_give_diagnosis
+      - action: utter_ask_sick
+      - intent: deny
+      - action: utter_cold
+  - story: Doctors appointment2
+    steps:
+      - intent: dr_appointment
+      - action: dr_form
+      - active_loop: dr_form
+      - action: utter_ask_fever
+      - intent: deny
+      - action: utter_ask_sick
+      - intent: affirm
+      - action: utter_allergies
