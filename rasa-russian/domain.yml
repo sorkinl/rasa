@@ -30,12 +30,6 @@ intents:
 entities:
   - PER
   - time
-  - nose
-  - throat
-  - headache
-  - fever
-  - sick
-
 slots:
   PER:
     type: rasa.shared.core.slots.TextSlot
@@ -57,50 +51,20 @@ slots:
     initial_value: null
     auto_fill: true
     influence_conversation: false
-  nose:
+  story:
     type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
-    influence_conversation: false
-  throat:
-    type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
-    influence_conversation: false
-  headache:
-    type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
-    influence_conversation: false
-  fever:
-    type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
-    influence_conversation: false
-  sick:
-    type: text
     initial_value: null
     auto_fill: true
     influence_conversation: false
 responses:
   utter_ask_dr_form_symptoms:
-    - text: Какие у вас симптомы?
+    - text: У вас болит голова, болит горло или насморк?
   utter_ask_dr_form_medication:
     - text: Какие лекарства вы принимаете?
   utter_ask_fever:
     - text: У вас есть температура?
-      buttons:
-        - title: "Да"
-          payload: '/affirm{"fever": "True"}'
-        - title: "Нет"
-          payload: '/deny{"fever": "False"}'
-  utter_ask_dr_form_sick:
+  utter_ask_sick_often:
     - text: Вы часто болеете?
-      buttons:
-        - title: "Да"
-          payload: '/affirm{"sick": "True"}'
-        - title: "Нет"
-          payload: '/deny{"sick": "False"}'
   utter_ask_meeting_info:
     - text: Как вас зовут и во сколько вы хотите встретится?
   utter_ask_for_time:
@@ -125,18 +89,24 @@ responses:
     - text: Извините, я не понял. Вы можете перефразировать?
   utter_confirm_meetings:
     - text: Ваша встреча на имя {PER} произойдет в {time}.
+  utter_flu_diagnosis:
+    - text: I will run a test, but I think you the flu.  Take this medicine if you have a strong fever.  Do not take it more than 4 times per day.  Drink plenty of water and rest as much as you can.  Goodbye.
+  utter_cold_diagnosis:
+    - text: I think you a slight cold.  You can pick up some cold medicine at the pharmacy for your symptoms. Get plenty of rest and come back and see me if you aren't better in a few days.  Goodbye.
+  utter_allergies_diagnosis:
+    - text: I think you have allergies.  Here is a prescription for the pharmacy if you are congested.  Try to avoid dust and mold.  It also helps if you can exercise frequently if you are congested.  Goodbye.
 actions:
   - action_confirm_name
   - action_handle_provided_info
   - action_give_diagnosis
-
+  - action_set_story_slot_as_dr
+  - action_after_general_doctor_form
+  - action_finish_doctor_form
 forms:
   dr_form:
     required_slots:
       symptoms:
         - type: from_text
       medication:
-        - type: from_text
-      sick:
         - type: from_text
 e2e_actions: []

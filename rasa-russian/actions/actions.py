@@ -11,6 +11,18 @@ from rasa_sdk.events import ConversationPaused
 from rasa_sdk.events import UserUttered
 from rasa.shared.nlu.training_data.message import Message
 
+class ActionSetStorySlotAsDr(Action):
+    def name(self):
+        return "action_set_story_slot_as_dr"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        print('In ActionSetStorySlotAsDr!')
+        story = tracker.get_slot('story')
+        #That attempt above doesn't works, so can only get latest message to be the one before they entered fallback function
+        if story is None:
+          return [SlotSet("story", "dr")]
 
 def getCapitalizedElement(arr):
     nameArr = []
@@ -65,6 +77,7 @@ class ActionHandleProvidedInfo(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        print('In ActionHandleProvidedInfo!')
         name = tracker.get_slot('PER')
         time = tracker.get_slot('time')
 
@@ -115,18 +128,38 @@ class ActionConfirmName(Action):
         return "action_confirm_name"
 
     async def run(self, dispatcher, tracker, domain):
+        print('In ActionConfirmName!')
         print("Confirm name")
         message = tracker.latest_message["text"]
 
         return [SlotSet("PER", message)]
+#This action just triggers another action, the AfterGeneralDoctorForm
+#Form some reason, the form interferes with our simple intent branching
+#so trying with different stories
+class ActionFinishDoctorForm(Action):
+    def name(self):
+        return "action_finish_doctor_form"
 
+    async def run(self, dispatcher, tracker, domain):
+        print('In ActionFinishDoctorForm')
+        return [FollowupAction("action_after_general_doctor_form")]
 
+#Starts the actual logic portion of our Doctor story with different diagnosis.
+class AfterGeneralDoctorForm(Action):
+    def name(self) -> Text:
+        return "action_after_general_doctor_form"
+
+    def run(self, dispatcher, tracker, domain):
+        print('In AfterGeneralDoctorForm')
+        return []
+
+#We are not using this, Delete Leo
 class ActionGiveDiagnosis(Action):
     def name(self):
         return "action_give_diagnosis"
 
     async def run(self, dispatcher, tracker, domain):
-        print("Give diagnosis")
+        print('In ActionHandleProvidedInfo!')
         fever = tracker.get_slot("fever")
         sick = tracker.get_slot("sick")
         headache = tracker.get_slot("headache")
