@@ -3,9 +3,11 @@ venv
 
 # Rasa files
 # exclude everything from models folder
-models/*
+rasa-english/models/*
+rasa-russian/models/*
 # except for .gitkeep, so that folder itself is included
-!models/.gitkeep 
+!rasa-english/models/.gitkeep 
+!rasa-russian/models/.gitkeep 
 results
 story_graph.dot
 

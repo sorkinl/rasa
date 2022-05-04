@@ -1,30 +1,85 @@
 version: "2.0"
 stories:
-  - story: Doctors appointment1
+  - story: user gives info
+    steps:
+      - intent: greet
+      - action: utter_ask_meeting_info
+      - intent: supply_meeting_info
+        entities:
+          - PER
+          - time
+      - slot_was_set:
+          - PER: not null
+          - time: not null
+      - action: action_handle_provided_info
+      - action: utter_confirm_meetings
+  - story: user gives only name
+    steps:
+      - intent: greet
+      - action: utter_ask_meeting_info
+      - intent: inform_name
+        entities:
+          - PER
+      - slot_was_set:
+          - PER: not null
+      - action: action_handle_provided_info
+      - intent: inform_time
+        entities:
+          - time
+      - slot_was_set:
+          - time: not null
+      - action: action_handle_provided_info
+      - action: utter_confirm_meetings
+
+  - story: user gives only location
+    steps:
+      - intent: greet
+      - action: utter_ask_meeting_info
+      - intent: inform_time
+        entities:
+          - time
+      - slot_was_set:
+          - time: not null
+      - action: action_handle_provided_info
+      - intent: inform_name
+        entities:
+          - PER
+      - slot_was_set:
+          - PER: not null
+      - action: action_confirm_name
+      - action: action_handle_provided_info
+      - action: utter_confirm_meetings
+
+  - story: Doctors general questions form
     steps:
       - intent: dr_appointment
+      - action: action_set_story_slot_as_dr
       - action: dr_form
       - active_loop: dr_form
+      - action: action_finish_doctor_form
+  - story: Doctors appointment flu
+    steps:
+      - action: action_after_general_doctor_form
       - action: utter_ask_fever
       - intent: affirm
-      - action: utter_flu
-  - story: Doctors appointment2
+      - action: utter_ask_sick_often
+      - or:
+          - intent: affirm
+          - intent: deny
+      - action: utter_flu_diagnosis
+  - story: Doctors appointment allergies
     steps:
-      - intent: dr_appointment
-      - action: dr_form
-      - active_loop: dr_form
+      - action: action_after_general_doctor_form
       - action: utter_ask_fever
       - intent: deny
-      - action: utter_ask_sick
-      - intent: deny
-      - action: utter_cold
-  - story: Doctors appointment2
-    steps:
-      - intent: dr_appointment
-      - action: dr_form
-      - active_loop: dr_form
-      - action: utter_ask_fever
-      - intent: deny
-      - action: utter_ask_sick
+      - action: utter_ask_sick_often
       - intent: affirm
-      - action: utter_allergies
+      - action: utter_allergies_diagnosis
+  - story: Doctors appointment cold
+    steps:
+      - action: action_after_general_doctor_form
+      - action: utter_ask_fever
+      - intent: deny
+      - action: utter_ask_sick_often
+      - intent: deny
+      - action: utter_cold_diagnosis

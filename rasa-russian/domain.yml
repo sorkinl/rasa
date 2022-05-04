@@ -30,12 +30,6 @@ intents:
 entities:
   - PER
   - time
-  - nose
-  - throat
-  - headache
-  - fever
-  - sick
-
 slots:
   PER:
     type: rasa.shared.core.slots.TextSlot
@@ -57,28 +51,8 @@ slots:
     initial_value: null
     auto_fill: true
     influence_conversation: false
-  nose:
+  story:
     type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
-    influence_conversation: false
-  throat:
-    type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
-    influence_conversation: false
-  headache:
-    type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
-    influence_conversation: false
-  fever:
-    type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
-    influence_conversation: false
-  sick:
-    type: text
     initial_value: null
     auto_fill: true
     influence_conversation: false
@@ -90,12 +64,12 @@ responses:
   utter_cold:
     - text: You have a cold!
   utter_ask_dr_form_symptoms:
-    - text: Какие у вас симптомы?
+    - text: У вас болит голова, болит горло или насморк?
   utter_ask_dr_form_medication:
     - text: Какие лекарства вы принимаете?
   utter_ask_fever:
     - text: У вас есть температура?
-  utter_ask_sick:
+  utter_ask_sick_often:
     - text: Вы часто болеете?
   utter_ask_meeting_info:
     - text: Как вас зовут и во сколько вы хотите встретится?
@@ -121,11 +95,19 @@ responses:
     - text: Извините, я не понял. Вы можете перефразировать?
   utter_confirm_meetings:
     - text: Ваша встреча на имя {PER} произойдет в {time}.
+  utter_flu_diagnosis:
+    - text: Мне кажется у вас грипп. Принимайте это лекарство чтобы снизить температуру. Не принимайте его дольше трех дней. Больше отдыхайте и звоните если ваше состояние не улучшиться через пару дней. До свидания!
+  utter_cold_diagnosis:
+    - text: Скорее всего, у вас простуда. Сходите в аптеку и купите лекарства от простуды .  Больше отдыхайте и звоните если ваше состояние не улучшиться через пару дней.  До свидания!
+  utter_allergies_diagnosis:
+    - text: Кажется у вас аллергия.  Вот рецепт на лекарство, предъявите его в аптеке. Старайтесь не находиться в комнатах с пылью. Занятие спортом обычно помогает с заложенностью носа.До свидания!
 actions:
   - action_confirm_name
   - action_handle_provided_info
   - action_give_diagnosis
-
+  - action_set_story_slot_as_dr
+  - action_after_general_doctor_form
+  - action_finish_doctor_form
 forms:
   dr_form:
     required_slots:
