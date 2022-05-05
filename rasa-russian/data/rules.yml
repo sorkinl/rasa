@@ -10,3 +10,8 @@ rules:
       - action: action_default_ask_affirmation
       - intent: out_of_scope
       - action: action_default_fallback
+
+  - rule: Single stage fallback | ask user to choose what they meant
+    steps:
+      - intent: goodbye
+      - action: utter_goodbye

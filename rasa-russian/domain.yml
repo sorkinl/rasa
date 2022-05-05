@@ -17,8 +17,6 @@ intents:
       use_entities: true
   - inform_time:
       use_entities: true
-  - nlu_fallback:
-      use_entities: true
   - dr_appointment:
       use_entities: true
   - inform_symptoms:
@@ -79,6 +77,8 @@ responses:
     - text: Как вас зовут?
   utter_please_rephrase:
     - text: Простите, я не совсем понял. Не могли бы вы перефразировать?
+  utter_ask_rephrase:
+    - text: Простите, я не совсем понял. Не могли бы вы перефразировать?
   utter_out_of_scope:
     - text: Извините, я не могу обработать этот запрос.
   utter_greet:
@@ -101,6 +101,7 @@ responses:
     - text: Скорее всего, у вас простуда. Сходите в аптеку и купите лекарства от простуды .  Больше отдыхайте и звоните если ваше состояние не улучшиться через пару дней.  До свидания!
   utter_allergies_diagnosis:
     - text: Кажется у вас аллергия.  Вот рецепт на лекарство, предъявите его в аптеке. Старайтесь не находиться в комнатах с пылью. Занятие спортом обычно помогает с заложенностью носа.До свидания!
+
 actions:
   - action_confirm_name
   - action_handle_provided_info
@@ -108,6 +109,10 @@ actions:
   - action_set_story_slot_as_dr
   - action_after_general_doctor_form
   - action_finish_doctor_form
+  - action_default_fallback
+  - action_default_ask_affirmation
+
+
 forms:
   dr_form:
     required_slots:

@@ -11,6 +11,21 @@ from rasa_sdk.events import ConversationPaused
 from rasa_sdk.events import UserUttered
 from rasa.shared.nlu.training_data.message import Message
 
+class ActionDefaultAskAffirmation(Action):
+    def name(self):
+        return "action_default_ask_affirmation"
+
+    async def run(self, dispatcher, tracker, domain):
+
+        print('In ActionDefaultAskAffirmation')
+        message = "Простите, я не совсем понял. Пожалуйста, нажмите кнопку"# a mapping between intents and user friendly wordings
+        buttons = [
+            {"title": "Да", "payload": "/affirm"}, 
+            {"title": "Нет", "payload": "/deny"}, 
+        ]
+
+        dispatcher.utter_message(text=message, buttons=buttons)
+        return []
 
 class ActionSetStorySlotAsDr(Action):
     def name(self):
